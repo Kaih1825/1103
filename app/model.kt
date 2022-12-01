@@ -1,0 +1,1 @@
+class model(val num:String,val voName:String,val hosName: String,val date:String)
