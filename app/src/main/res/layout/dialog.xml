@@ -82,9 +82,11 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:thumb="@drawable/switch_thumb"
+                android:track="@drawable/switch_track"
+                android:showText="true"
                 android:textOff="男"
                 android:textOn="女"
-                android:track="@drawable/switch_track"/>
+                />
         </LinearLayout>
 
         <TextView
