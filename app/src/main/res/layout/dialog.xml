@@ -77,33 +77,16 @@
                     android:textColorHint="#CBCBCB" />
             </androidx.cardview.widget.CardView>
 
-            <LinearLayout
+            <Switch
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:background="@drawable/white_ra"
+                android:thumb=""
                 android:orientation="horizontal"
                 android:elevation="0dp"
                 android:backgroundTint="#daecff">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:elevation="0dp"
-                    android:background="@drawable/white_ra"
-                    android:backgroundTint="#0165C5"
-                    android:text="男"
-                    android:textColor="@color/white"
-                    android:layout_weight="1"/>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:elevation="0dp"
-                    android:backgroundTint="#daecff"
-                    android:text="女"
-                    android:textColor="#00BCD4"
-                    android:background="@drawable/white_ra"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+
+            </Switch>
         </LinearLayout>
 
         <TextView
