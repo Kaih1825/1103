@@ -81,12 +81,10 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:thumb=""
-                android:orientation="horizontal"
-                android:elevation="0dp"
-                android:backgroundTint="#daecff">
-
-            </Switch>
+                android:thumb="@drawable/switch_thumb"
+                android:textOff="男"
+                android:textOn="女"
+                android:track="@drawable/switch_track"/>
         </LinearLayout>
 
         <TextView
