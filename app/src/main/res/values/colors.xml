@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="deepBlue">#0165C5</color>
     <color name="lightBlue">#daecff</color>
+    <color name="trasnparent">#00FFFFFF</color>
 </resources>

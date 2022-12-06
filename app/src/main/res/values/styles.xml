@@ -3,4 +3,7 @@
     <style name="datepicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/deepBlue</item>
     </style>
+    <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
+        <item name="android:textColor">@color/lightBlue</item>
+    </style>
 </resources>

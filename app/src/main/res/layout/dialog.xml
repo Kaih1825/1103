@@ -78,15 +78,15 @@
             </androidx.cardview.widget.CardView>
 
             <Switch
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:thumb="@drawable/set_switch_thumb"
-                android:track="@drawable/set_switch_track"
-                android:showText="true"
-                android:textOff="男"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:textOn="女"
-                />
+                android:textOff="男"
+                android:switchTextAppearance="@style/SwitchTextAppearance"
+                android:showText="true"
+                android:textColor="@color/lightBlue"
+                android:track="@drawable/set_switch_track"
+                android:thumb="@drawable/set_switch_thumb"/>
         </LinearLayout>
 
         <TextView

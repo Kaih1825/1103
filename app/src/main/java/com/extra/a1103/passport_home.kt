@@ -41,7 +41,7 @@ class passport_home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passport_home)
-        //TODO Switch Button
+        //TODO 字數限制
         dialogBackground.visibility = View.INVISIBLE
         var sharedPreferences=this.getSharedPreferences("personalInfo",Context.MODE_PRIVATE)
         var sharedPreferencesEdit=sharedPreferences.edit()
