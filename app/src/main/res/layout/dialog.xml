@@ -42,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="50dp"
-            android:background="@drawable/white_cir"
+            android:background="@drawable/blu_cir"
             android:src="@drawable/a2" />
 
         <TextView
@@ -67,7 +67,6 @@
                 app:cardCornerRadius="10dp">
 
                 <EditText
-                    android:maxLength="15"
                     android:id="@+id/edt_cnName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,16 +76,47 @@
                     android:textColorHint="#CBCBCB" />
             </androidx.cardview.widget.CardView>
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textOn="女"
-                android:textOff="男"
-                android:switchTextAppearance="@style/SwitchTextAppearance"
-                android:showText="true"
-                android:textColor="@color/lightBlue"
-                android:track="@drawable/set_switch_track"
-                android:thumb="@drawable/set_switch_thumb"/>
+            <RelativeLayout
+                android:layout_width="80dp"
+                android:layout_height="wrap_content">
+                <Switch
+                    android:id="@+id/genderSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textOn="女"
+                    android:textOff="男"
+                    android:switchTextAppearance="@style/SwitchTextAppearance"
+                    android:textColor="@color/lightBlue"
+                    android:track="@drawable/set_switch_track"
+                    android:thumb="@drawable/set_switch_thumb"/>
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtMen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="13dp"
+                        android:text="男"
+                        android:textColor="@color/lightBlue" />
+
+                    <TextView
+                        android:id="@+id/txtWomen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="13dp"
+                        android:text="女"
+                        android:textColor="@color/lightBlueGrey" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
         </LinearLayout>
 
         <TextView
@@ -107,7 +137,6 @@
             app:cardCornerRadius="10dp">
 
             <EditText
-                android:maxLength="30"
                 android:id="@+id/edt_enName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,7 +226,6 @@
                 app:cardCornerRadius="10dp">
 
                 <EditText
-                    android:maxLength="4"
                     android:id="@+id/edt_cardId1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -216,7 +244,6 @@
                 app:cardCornerRadius="10dp">
 
                 <EditText
-                    android:maxLength="4"
                     android:id="@+id/edt_cardId2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,7 +262,6 @@
                 app:cardCornerRadius="10dp">
 
                 <EditText
-                    android:maxLength="4"
                     android:id="@+id/edt_cardId3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -253,7 +279,6 @@
                 app:cardCornerRadius="10dp">
 
                 <EditText
-                    android:maxLength="4"
                     android:id="@+id/edt_cardId4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
