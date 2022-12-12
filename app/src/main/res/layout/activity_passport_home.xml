@@ -89,7 +89,7 @@
 
     </RelativeLayout>
 
-    <HorizontalScrollView
+    <com.extra.a1103.CustomHorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -260,7 +260,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </HorizontalScrollView>
+    </com.extra.a1103.CustomHorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/scrollViewIndex"

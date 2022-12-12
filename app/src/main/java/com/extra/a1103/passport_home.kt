@@ -2,27 +2,21 @@ package com.extra.a1103
 
 import android.app.Activity
 import android.app.Dialog
-import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.res.Resources.getSystem
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.widget.CalendarView
-import android.widget.DatePicker
+import android.view.KeyEvent.ACTION_UP
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.drawToBitmap
-import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -33,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_passport_home.view.*
 import kotlinx.android.synthetic.main.dialog.*
 import kotlinx.android.synthetic.main.list_view_layout.*
 import java.util.*
-import kotlin.math.log
 
 
 class passport_home : AppCompatActivity() {
@@ -41,10 +34,10 @@ class passport_home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passport_home)
-        //TODO 字數限制
+        //TODO 字數限制12
         dialogBackground.visibility = View.INVISIBLE
-        var sharedPreferences=this.getSharedPreferences("personalInfo",Context.MODE_PRIVATE)
-        var sharedPreferencesEdit=sharedPreferences.edit()
+        var sharedPreferences = this.getSharedPreferences("personalInfo", Context.MODE_PRIVATE)
+        var sharedPreferencesEdit = sharedPreferences.edit()
 //        data.visibility=View.INVISIBLE
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -55,33 +48,46 @@ class passport_home : AppCompatActivity() {
         btn_back.setOnClickListener(View.OnClickListener {
             finish()
         })
-        if(sharedPreferences.getString("chName","null")=="null"){
-            sharedPreferencesEdit.putString("chName",txt_chName.text.toString())
-            sharedPreferencesEdit.putString("enName",txt_enName.text.toString())
-            sharedPreferencesEdit.putString("birDate",txt_birDate.text.toString())
+        if (sharedPreferences.getString("chName", "null") == "null") {
+            sharedPreferencesEdit.putString("chName", txt_chName.text.toString())
+            sharedPreferencesEdit.putString("enName", txt_enName.text.toString())
+            sharedPreferencesEdit.putString("birDate", txt_birDate.text.toString())
             sharedPreferencesEdit.apply()
         }
-        scrollView.setOnScrollChangeListener { view, x, y, _, _ ->
+        var scrollHistory=0
+        scrollView.setOnScrollChangeListener { view, x, y, cx, cy ->
             run {
-                if (x <= 70.toPx+scroll1.width/2) {
-                    //Log.e("TAG", "1", )
-                    scroll1Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
-                    scroll2Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
-                    scroll3Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
-                } else if (x <= 70.toPx+scroll1.width+50.toPx+scroll2.width/2){
-                    //Log.e("TAG", "2", )
-                    scroll2Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
-                    scroll1Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
-                    scroll3Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
-                } else {
-                    //Log.e("TAG", "3", )
-                    scroll3Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
-                    scroll2Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
-                    scroll1Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                if(scrollHistory>=scroll1.width) {
+                    if (x <= 70.toPx + scroll1.width / 2) {
+                        //Log.e("TAG", "1", )
+                        scrollView.smoothScrollTo(0, 0)
+                        scrollHistory=0
+                        scroll1Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
+                        scroll2Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                        scroll3Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                    } else if (x <= 70.toPx + scroll1.width + 50.toPx + scroll2.width / 2) {
+                        //Log.e("TAG", "2", )
+                        scrollView.smoothScrollTo(70.toPx + scroll1.width - 20.toPx, 0)
+                        scrollHistory=0
+                        scroll2Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
+                        scroll1Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                        scroll3Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                    } else {
+                        //Log.e("TAG", "3", )
+                        scrollView.fullScroll(View.FOCUS_RIGHT)
+                        scrollHistory=0
+                        scroll3Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
+                        scroll2Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                        scroll1Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
+                    }
+                }
+                else{
+                    scrollHistory+=cx-x;
                 }
             }
         }
-        txt_chName.setOnClickListener{
+
+        txt_chName.setOnClickListener {
             sharedPreferencesEdit.clear()
             sharedPreferencesEdit.apply()
         }
@@ -95,7 +101,7 @@ class passport_home : AppCompatActivity() {
         img_personalInfo.setOnClickListener {
             setBlurBackground()
             dialogBackground.visibility = View.VISIBLE
-            infoDialog(this,this).show()
+            infoDialog(this, this).show()
         }
     }
 
@@ -122,28 +128,34 @@ class passport_home : AppCompatActivity() {
 
 }
 
-class infoDialog(context: Context,var activity: Activity):Dialog(context){
+
+class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setDimAmount(0f)
-        var sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE)
-        var sharedPreferencesEdit=sharedPreferences.edit()
-        edt_cnName.hint=sharedPreferences.getString("cnName","王曉明")
-        edt_enName.hint=sharedPreferences.getString("enName","Xiao Ming")
-        btn_birdate.text=sharedPreferences.getString("birYear","1996")+"/"+sharedPreferences.getString("birMonth","05")+"/"+sharedPreferences.getString("birDay","18")
-        edt_id.hint=sharedPreferences.getString("id","J1236456789")
-        edt_cardId1.hint=sharedPreferences.getString("cardId1","0000")
-        edt_cardId2.hint=sharedPreferences.getString("cardId2","1234")
-        edt_cardId3.hint=sharedPreferences.getString("cardId3","5678")
-        edt_cardId4.hint=sharedPreferences.getString("cardId4","4321")
-        genderSwitch.isChecked=sharedPreferences.getBoolean("gender",false)
-        if(genderSwitch.isChecked){
+        var sharedPreferences = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE)
+        var sharedPreferencesEdit = sharedPreferences.edit()
+        edt_cnName.hint = sharedPreferences.getString("cnName", "王曉明")
+        edt_enName.hint = sharedPreferences.getString("enName", "Xiao Ming")
+        btn_birdate.text = sharedPreferences.getString(
+            "birYear",
+            "1996"
+        ) + "/" + sharedPreferences.getString("birMonth", "05") + "/" + sharedPreferences.getString(
+            "birDay",
+            "18"
+        )
+        edt_id.hint = sharedPreferences.getString("id", "J1236456789")
+        edt_cardId1.hint = sharedPreferences.getString("cardId1", "0000")
+        edt_cardId2.hint = sharedPreferences.getString("cardId2", "1234")
+        edt_cardId3.hint = sharedPreferences.getString("cardId3", "5678")
+        edt_cardId4.hint = sharedPreferences.getString("cardId4", "4321")
+        genderSwitch.isChecked = sharedPreferences.getBoolean("gender", false)
+        if (genderSwitch.isChecked) {
             txtWomen.setTextColor(activity.resources.getColor(R.color.lightBlue))
             txtMen.setTextColor(activity.resources.getColor(R.color.lightBlueGrey))
-        }
-        else{
+        } else {
             txtMen.setTextColor(activity.resources.getColor(R.color.lightBlue))
             txtWomen.setTextColor(activity.resources.getColor(R.color.lightBlueGrey))
         }
@@ -152,34 +164,38 @@ class infoDialog(context: Context,var activity: Activity):Dialog(context){
             super.cancel()
         }
 
-        var dialog= MaterialDatePicker.Builder.datePicker()
+        var dialog = MaterialDatePicker.Builder.datePicker()
             .setTitleText("")
             .setTheme(R.style.datepicker)
             .build()
-        var calender= Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        var year:String="1996"
-        var month:String="05"
-        var day:String="18"
-        var btDayHaveChange=false
-        btn_birdate.setOnClickListener{
-            var activity2=activity as passport_home
-            dialog.show(activity2.supportFragmentManager,"")
+        var calender = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        var year: String = "1996"
+        var month: String = "05"
+        var day: String = "18"
+        var btDayHaveChange = false
+        btn_birdate.setOnClickListener {
+            var activity2 = activity as passport_home
+            dialog.show(activity2.supportFragmentManager, "")
         }
         dialog.addOnPositiveButtonClickListener {
-            calender.timeInMillis= dialog.selection!!
-            year="${calender.get(Calendar.YEAR)}"
-            month="${calender.get(Calendar.MONTH)+1}"
-            day="${calender.get(Calendar.DATE)}"
-            btn_birdate.text="${calender.get(Calendar.YEAR)}/${calender.get(Calendar.MONTH)+1}/${calender.get(Calendar.DATE)}"
-            btDayHaveChange=true
+            calender.timeInMillis = dialog.selection!!
+            year = "${calender.get(Calendar.YEAR)}"
+            month = "${calender.get(Calendar.MONTH) + 1}"
+            day = "${calender.get(Calendar.DATE)}"
+            btn_birdate.text =
+                "${calender.get(Calendar.YEAR)}/${calender.get(Calendar.MONTH) + 1}/${
+                    calender.get(Calendar.DATE)
+                }"
+            btDayHaveChange = true
         }
-        edt_cardId2.isEnabled=false
-        edt_cardId3.isEnabled=false
-        edt_cardId4.isEnabled=false
+        edt_cardId2.isEnabled = false
+        edt_cardId3.isEnabled = false
+        edt_cardId4.isEnabled = false
         edt_cardId1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 edt_cardId2.isEnabled = edt_cardId1.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
@@ -187,6 +203,7 @@ class infoDialog(context: Context,var activity: Activity):Dialog(context){
             override fun afterTextChanged(p0: Editable?) {
                 edt_cardId3.isEnabled = edt_cardId2.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
@@ -195,15 +212,15 @@ class infoDialog(context: Context,var activity: Activity):Dialog(context){
             override fun afterTextChanged(p0: Editable?) {
                 edt_cardId4.isEnabled = edt_cardId3.text.isNotEmpty()
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
         genderSwitch.setOnClickListener {
-            if(genderSwitch.isChecked){
+            if (genderSwitch.isChecked) {
                 txtWomen.setTextColor(activity.resources.getColor(R.color.lightBlue))
                 txtMen.setTextColor(activity.resources.getColor(R.color.lightBlueGrey))
-            }
-            else{
+            } else {
                 txtMen.setTextColor(activity.resources.getColor(R.color.lightBlue))
                 txtWomen.setTextColor(activity.resources.getColor(R.color.lightBlueGrey))
             }
@@ -211,41 +228,51 @@ class infoDialog(context: Context,var activity: Activity):Dialog(context){
         }
         dialogBtn_close.setOnClickListener {
             activity.dialogBackground.visibility = View.INVISIBLE
-            if(!edt_cnName.text.isEmpty()){
-                sharedPreferencesEdit.putString("cnName",edt_cnName.text.toString())
+            if (!edt_cnName.text.isEmpty()) {
+                sharedPreferencesEdit.putString("cnName", edt_cnName.text.toString())
 
             }
-            if(!edt_enName.text.isEmpty()){
-                sharedPreferencesEdit.putString("enName",edt_enName.text.toString())
+            if (!edt_enName.text.isEmpty()) {
+                sharedPreferencesEdit.putString("enName", edt_enName.text.toString())
 
             }
-            if(btDayHaveChange){
-                sharedPreferencesEdit.putString("birYear",year)
-                sharedPreferencesEdit.putString("birMonth",month)
-                sharedPreferencesEdit.putString("birDay",day)
+            if (btDayHaveChange) {
+                sharedPreferencesEdit.putString("birYear", year)
+                sharedPreferencesEdit.putString("birMonth", month)
+                sharedPreferencesEdit.putString("birDay", day)
 
             }
-            if(!edt_id.text.isEmpty()){
-                sharedPreferencesEdit.putString("id",edt_id.text.toString())
+            if (!edt_id.text.isEmpty()) {
+                sharedPreferencesEdit.putString("id", edt_id.text.toString())
             }
-            if(edt_cardId1.text.isNotEmpty()){
-                sharedPreferencesEdit.putString("cardId1",edt_cardId1.text.toString())
+            if (edt_cardId1.text.isNotEmpty()) {
+                sharedPreferencesEdit.putString("cardId1", edt_cardId1.text.toString())
             }
-            if(edt_cardId2.text.isNotEmpty()){
-                sharedPreferencesEdit.putString("cardId2",edt_cardId2.text.toString())
+            if (edt_cardId2.text.isNotEmpty()) {
+                sharedPreferencesEdit.putString("cardId2", edt_cardId2.text.toString())
             }
-            if(edt_cardId3.text.isNotEmpty()){
-                sharedPreferencesEdit.putString("cardId3",edt_cardId3.text.toString())
+            if (edt_cardId3.text.isNotEmpty()) {
+                sharedPreferencesEdit.putString("cardId3", edt_cardId3.text.toString())
             }
-            if(edt_cardId4.text.isNotEmpty()){
-                sharedPreferencesEdit.putString("cardId4",edt_cardId4.text.toString())
+            if (edt_cardId4.text.isNotEmpty()) {
+                sharedPreferencesEdit.putString("cardId4", edt_cardId4.text.toString())
             }
             sharedPreferencesEdit.apply()
-            activity.txt_chName.text=sharedPreferences.getString("cnName","王曉明")
-            activity.txt_enName.text=sharedPreferences.getString("enName","Xiao Ming")
-            activity.txt_birDate.text=sharedPreferences.getString("birDate","1996/05/18")
-            activity.txt_birDate.text="${ sharedPreferences.getString("birYear","1996")}.${sharedPreferences.getString("birMonth","05")}.${sharedPreferences.getString("birDay","18")}"
-            sharedPreferencesEdit.putBoolean("gender",genderSwitch.isChecked)
+            activity.txt_chName.text = sharedPreferences.getString("cnName", "王曉明")
+            activity.txt_enName.text = sharedPreferences.getString("enName", "Xiao Ming")
+            activity.txt_birDate.text = sharedPreferences.getString("birDate", "1996/05/18")
+            activity.txt_birDate.text = "${
+                sharedPreferences.getString(
+                    "birYear",
+                    "1996"
+                )
+            }.${
+                sharedPreferences.getString(
+                    "birMonth",
+                    "05"
+                )
+            }.${sharedPreferences.getString("birDay", "18")}"
+            sharedPreferencesEdit.putBoolean("gender", genderSwitch.isChecked)
             sharedPreferencesEdit.apply()
             super.cancel()
         }
@@ -275,7 +302,9 @@ class CustomAdapter(
         const val baseViewType = 1
         const val plusViewType = 2
     }
+
     val Int.toPx: Int get() = (this * getSystem().displayMetrics.density).toInt()
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val num: TextView
         val voName: TextView
@@ -327,9 +356,9 @@ class CustomAdapter(
                 date.text = dateArray[position]
                 voClick.setOnClickListener {
                     if (position == 0) {
-                        activity.scrollView.scrollTo(0, 0)
+                        activity.scrollView.smoothScrollTo(0, 0)
                     } else if (position == 1) {
-                        activity.scrollView.scrollTo(70.toPx+activity.scroll1.width-20.toPx, 0)
+                        activity.scrollView.smoothScrollTo(70.toPx + activity.scroll1.width - 20.toPx, 0)
                     } else if (position == 2) {
                         activity.scrollView.fullScroll(View.FOCUS_RIGHT)
                     }
