@@ -21,6 +21,7 @@ import android.widget.HorizontalScrollView;
 public class CustomHorizontalScrollView<ScrollViewListenner> extends HorizontalScrollView {
 
     private final Context context;
+    private Boolean enableScroll=true;
 
     public CustomHorizontalScrollView(Context context) {
         super(context);
@@ -41,11 +42,32 @@ public class CustomHorizontalScrollView<ScrollViewListenner> extends HorizontalS
         this.context = context;
     }
 
+    public void setEnabledScroll(boolean enabled) {
+        this.enableScroll = enabled;
+    }
 
-     @Override
-     public void fling(int velocity) {
-     super.fling(velocity / 10000);
-     }
+    @Override
+    public void fling(int velocity) {
+        super.fling(velocity / 10000);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (enableScroll) {
+            return super.onInterceptTouchEvent(ev);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (enableScroll) {
+            return super.onTouchEvent(ev);
+        } else {
+            return false;
+        }
+    }
 
 }
 
