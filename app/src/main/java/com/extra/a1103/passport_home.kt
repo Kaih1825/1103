@@ -56,53 +56,41 @@ class passport_home : AppCompatActivity() {
         }
         var scrollhis = 0
         var x1 = 0f
-        var x0 = 0f
+        var x0 = 0
         var scrollx0=0
         var scrollx1=0
-        scrollView.setEnabledScroll(false)
+        var startX: Int = 0
+        var startY: Int = 0
         scrollView.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, motionEvent: MotionEvent?): Boolean {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 var thisPossition = true
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> run {
-                       x0=motionEvent.x
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // 记录点下去的点（起点）
+                        startX = event.rawX.toInt()
+                        x0= event.rawX.toInt()
+                        startY = event.rawY.toInt()
                     }
-                    MotionEvent.ACTION_MOVE->run{
-                        x1=motionEvent.x
-                        if((x1-x0)>0){
-                            thisPossition=true
+                    MotionEvent.ACTION_UP->{
+                        // 记录移动后的点（终点）
+                        //Log.e("dx1",x0.toString(), )
+                        var endX: Int = event.rawX.toInt()
+                        var endY: Int = event.rawY.toInt()
+                        // 计算起点和终点之间 对应距离
+                        var spaceX = endX - startX
+                        var spaceY = endY - startY
+                        startX = endX
+                        startY = endY
+                        //Log.e("dx",spaceX.toString(), )
+                        // 如果距离大于5认为是移动了
+                        if (abs(spaceX)>=scroll1.width) {
+                            Log.e("MOVE", "move", )
                         }
-                        else if((x1-x0)<0){
-                            thisPossition=false
-                        }
-                        else{}
-                    }
-                }
-                Log.e("dx", (x1-x0).toString(), )
-                Log.e("x1", (x1).toString(), )
-                Log.e("x0", (x0).toString(), )
-                if(thisPossition){
-                    if(abs(x1-x0)>=scroll1.width){
-                        scrollx0=scrollx1
-                        scrollView.scrollTo((scrollView.x+50.toPx+scroll1.width).toInt(),0)
-                        scrollx1= scrollView.x.toInt()
-                    }
-                    else{
-                        scrollView.scrollTo(scrollx0,0)
-                    }
-                }
-                else{
-                    if(abs(x0-x1)>=scroll1.width){
-                        scrollx0=scrollx1
-                        scrollView.scrollTo((scrollView.x-50.toPx-scroll1.width).toInt(),0)
-                        scrollx1= scrollView.x.toInt()
-                    }
-                    else{
-                        scrollView.scrollTo(scrollx0,0)
+
                     }
                 }
 
-                return v?.onTouchEvent(motionEvent) ?: true
+                return true
             }
         })
         scrollView.setOnScrollChangeListener { view, x, y, ox, oy ->
