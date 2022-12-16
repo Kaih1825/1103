@@ -31,6 +31,7 @@ import kotlin.math.abs
 
 class passport_home : AppCompatActivity() {
     //120100912
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passport_home)
@@ -61,6 +62,9 @@ class passport_home : AppCompatActivity() {
         var scrollx1=0
         var startX: Int = 0
         var startY: Int = 0
+
+        var scrollDx=0
+        scrollView.setEnabledScroll(false)
         scrollView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 var thisPossition = true
@@ -74,6 +78,9 @@ class passport_home : AppCompatActivity() {
                     MotionEvent.ACTION_UP->{
                         // 记录移动后的点（终点）
                         //Log.e("dx1",x0.toString(), )
+                        if(scrollDx==0){
+                            scrollDx=scroll1.width
+                        }
                         var endX: Int = event.rawX.toInt()
                         var endY: Int = event.rawY.toInt()
                         // 计算起点和终点之间 对应距离
@@ -83,8 +90,18 @@ class passport_home : AppCompatActivity() {
                         startY = endY
                         //Log.e("dx",spaceX.toString(), )
                         // 如果距离大于5认为是移动了
-                        if (abs(spaceX)>=scroll1.width) {
-                            Log.e("MOVE", "move", )
+                        Log.e("TAG", spaceX.toString(), )
+                        if (abs(spaceX)>=scrollDx/2 && spaceX>0) {
+                            Log.e("scrollDx", scrollDx.toString(), )
+                            Log.e("MOVE", "-1", )
+                            Log.e("MoveX", (scrollView.scrollX).toInt().toString(), )
+                            scrollView.smoothScrollTo((scrollView.scrollX-scrollDx-35.toPx).toInt(),0)
+                        }
+                        else if (abs(spaceX)>=scrollDx/2 && spaceX<0) {
+                            Log.e("scrollDx", scrollDx.toString(), )
+                            Log.e("MOVE", "-1", )
+                            scrollView.smoothScrollTo((scrollView.scrollX+scrollDx+35.toPx).toInt(),0)
+                            Log.e("MoveX", (scrollView.scrollX).toInt().toString(), )
                         }
 
                     }
@@ -95,7 +112,6 @@ class passport_home : AppCompatActivity() {
         })
         scrollView.setOnScrollChangeListener { view, x, y, ox, oy ->
             run {
-
                 if (x <= 70.toPx + scroll1.width / 2) {
                     //Log.e("TAG", "1", )
                     scroll1Dot.setBackgroundColor(Color.parseColor("#1C54C6"))
@@ -131,6 +147,7 @@ class passport_home : AppCompatActivity() {
             infoDialog(this, this).show()
         }
     }
+
 
     val Int.toPx: Int get() = (this * getSystem().displayMetrics.density).toInt()
     fun setBlurBackground() {
