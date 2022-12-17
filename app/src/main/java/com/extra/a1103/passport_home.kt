@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.drawToBitmap
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -57,7 +58,7 @@ class passport_home : AppCompatActivity() {
         }
         var startX: Int = 0
         var startY: Int = 0
-        var scrollDx=0
+        var scrollDx = 0
         scrollView.setEnabledScroll(false)
         scrollView.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -66,26 +67,31 @@ class passport_home : AppCompatActivity() {
                         startX = event.rawX.toInt()
                         startY = event.rawY.toInt()
                     }
-                    MotionEvent.ACTION_UP->{
-                        if(scrollDx==0){
-                            scrollDx=scroll1.width
+                    MotionEvent.ACTION_UP -> {
+                        if (scrollDx == 0) {
+                            scrollDx = scroll1.width
                         }
                         var endX: Int = event.rawX.toInt()
                         var endY: Int = event.rawY.toInt()
                         var spaceX = endX - startX
                         var spaceY = endY - startY
-                        Log.e("TAG", spaceX.toString(), )
-                        if (abs(spaceX)>=scrollDx/2 && spaceX>0) {
-                            Log.e("scrollDx", scrollDx.toString(), )
-                            Log.e("MOVE", "-1", )
-                            Log.e("MoveX", (scrollView.scrollX).toInt().toString(), )
-                            scrollView.smoothScrollTo((scrollView.scrollX-scrollDx-50.toPx).toInt(),0)
-                        }
-                        else if (abs(spaceX)>=scrollDx/2 && spaceX<0) {
-                            Log.e("scrollDx", scrollDx.toString(), )
-                            Log.e("MOVE", "-1", )
-                            scrollView.smoothScrollTo((scrollView.scrollX+scrollDx+50.toPx).toInt(),0)
-                            Log.e("MoveX", (scrollView.scrollX).toInt().toString(), )
+                        Log.e("TAG", spaceX.toString())
+                        if (abs(spaceX) >= scrollDx / 2 && spaceX > 0) {
+                            Log.e("scrollDx", scrollDx.toString())
+                            Log.e("MOVE", "-1")
+                            Log.e("MoveX", (scrollView.scrollX).toInt().toString())
+                            scrollView.smoothScrollTo(
+                                (scrollView.scrollX - scrollDx - 50.toPx).toInt(),
+                                0
+                            )
+                        } else if (abs(spaceX) >= scrollDx / 2 && spaceX < 0) {
+                            Log.e("scrollDx", scrollDx.toString())
+                            Log.e("MOVE", "-1")
+                            scrollView.smoothScrollTo(
+                                (scrollView.scrollX + scrollDx + 50.toPx).toInt(),
+                                0
+                            )
+                            Log.e("MoveX", (scrollView.scrollX).toInt().toString())
                         }
                     }
                 }
@@ -171,6 +177,46 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             "birDay",
             "18"
         )
+        var text=""
+        edt_cnName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(originalText: CharSequence?, start: Int, count: Int, after: Int) {
+                if(edt_cnName.text.length==15){
+                    text=originalText.toString()
+                }
+            }
+
+            override fun onTextChanged(onText: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edt_cnName.text.length>15){
+                    edt_cnName.error="上限為15字元"
+                    edt_cnName.setText(text)
+                    edt_cnName.setSelection(edt_cnName.text.length)
+                }
+            }
+
+            override fun afterTextChanged(afterText: Editable?) {
+
+            }
+        })
+        var text2=""
+        edt_enName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(originalText: CharSequence?, start: Int, count: Int, after: Int) {
+                if(edt_enName.text.length==30){
+                    text2=originalText.toString()
+                }
+            }
+
+            override fun onTextChanged(onText: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edt_enName.text.length>30){
+                    edt_enName.error="上限為30字元"
+                    edt_enName.setText(text2)
+                    edt_enName.setSelection(edt_enName.text.length)
+                }
+            }
+
+            override fun afterTextChanged(afterText: Editable?) {
+
+            }
+        })
         edt_id.hint = sharedPreferences.getString("id", "J1236456789")
         edt_cardId1.hint = sharedPreferences.getString("cardId1", "0000")
         edt_cardId2.hint = sharedPreferences.getString("cardId2", "1234")
@@ -383,7 +429,10 @@ class CustomAdapter(
                     if (position == 0) {
                         activity.scrollView.smoothScrollTo(0, 0)
                     } else if (position == 1) {
-                        activity.scrollView.smoothScrollTo(70.toPx + activity.scroll1.width - 20.toPx, 0)
+                        activity.scrollView.smoothScrollTo(
+                            70.toPx + activity.scroll1.width - 20.toPx,
+                            0
+                        )
                     } else if (position == 2) {
                         activity.scrollView.fullScroll(View.FOCUS_RIGHT)
                     }
