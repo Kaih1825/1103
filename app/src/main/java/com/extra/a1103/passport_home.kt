@@ -117,6 +117,7 @@ class passport_home : AppCompatActivity() {
                     scroll1Dot.setBackgroundColor(Color.parseColor("#B3B3B3"))
                 }
             }
+
         }
         txt_chName.setOnClickListener {
             sharedPreferencesEdit.clear()
