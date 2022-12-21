@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -298,7 +299,11 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             }
 
         }
-        dialogBtn_close.setOnClickListener {
+        dialogBtn_cancel.setOnClickListener{
+            activity.dialogBackground.visibility = View.INVISIBLE
+            super.cancel()
+        }
+        dialogBtn_confirm.setOnClickListener {
             activity.dialogBackground.visibility = View.INVISIBLE
             if (!edt_cnName.text.isEmpty()) {
                 sharedPreferencesEdit.putString("cnName", edt_cnName.text.toString())

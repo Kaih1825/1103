@@ -298,16 +298,30 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/dialogBtn_close"
+            android:id="@+id/dialogBtn_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cardNameFeature"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/closw_button_background"
             android:text="關閉"
             android:textColor="#12C741"
+            android:theme="@style/Theme.AppCompat" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialogBtn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardNameFeature"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toLeftOf="@id/dialogBtn_confirm"
+            android:background="#00DDDDDD"
+            android:text="取消"
+            android:textColor="@color/lightBlueGrey"
             android:theme="@style/Theme.AppCompat" />
 
     </RelativeLayout>
