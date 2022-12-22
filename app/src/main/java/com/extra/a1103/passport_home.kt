@@ -304,7 +304,6 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             super.cancel()
         }
         dialogBtn_confirm.setOnClickListener {
-            activity.dialogBackground.visibility = View.INVISIBLE
             if (!edt_cnName.text.isEmpty()) {
                 sharedPreferencesEdit.putString("cnName", edt_cnName.text.toString())
 
@@ -351,7 +350,7 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             }.${sharedPreferences.getString("birDay", "18")}"
             sharedPreferencesEdit.putBoolean("gender", genderSwitch.isChecked)
             sharedPreferencesEdit.apply()
-            super.cancel()
+            saveAndCancel()
         }
     }
 
@@ -359,8 +358,19 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
         super.show()
     }
 
+    fun saveAndCancel(){
+
+        Handler().postDelayed(
+            {
+                activity.editSuccess.visibility=View.INVISIBLE
+                activity.dialogBackground.visibility=View.INVISIBLE
+            },1000
+        )
+        super.cancel()
+        activity.editSuccess.visibility=View.VISIBLE
+
+    }
     override fun cancel() {
-        activity.dialogBackground.visibility = View.INVISIBLE
         super.cancel()
     }
 }

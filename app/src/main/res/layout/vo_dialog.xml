@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/data"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:visibility="visible"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="施打疫苗資料"
+            android:textColor="#2d1c50"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/a1" />
+
+        <TextView
+            android:id="@+id/txtVoType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/close"
+            android:layout_marginTop="30dp"
+            android:text="疫苗種類" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/voTypeFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="3"
+            app:cardBackgroundColor="#daecff"
+            android:layout_below="@id/txtVoType"
+            app:cardCornerRadius="10dp">
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtVoCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/voTypeFeature"
+            android:layout_marginTop="15dp"
+            android:text="疫苗劑數" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/voCountFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/txtVoCount"
+            android:layout_weight="3"
+            app:cardBackgroundColor="#daecff"
+            app:cardCornerRadius="10dp"/>
+
+        <TextView
+            android:id="@+id/txtvoPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/voCountFeature"
+            android:layout_marginTop="15dp"
+            android:text="施打地點" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/voPlaceFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/txtvoPlace"
+            android:layout_weight="3"
+            app:cardBackgroundColor="#daecff"
+            app:cardCornerRadius="10dp">
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/voPlaceFeature"
+            android:layout_marginTop="15dp"
+            android:text="施打日期" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dateFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/txtDate"
+            android:layout_weight="3"
+            app:cardBackgroundColor="#daecff"
+            app:cardCornerRadius="10dp"/>
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateFeature"
+            android:layout_marginTop="15dp"
+            android:text="施打時間" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@id/timeFeature"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#daecff"
+                android:layout_below="@id/txtTime"
+                app:cardCornerRadius="10dp">
+            </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialogBtn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timeFeature"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/edit_button_background"
+            android:text="修改"
+            android:textColor="#FF1100"
+            android:theme="@style/Theme.AppCompat" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialogBtn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timeFeature"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toLeftOf="@id/dialogBtn_confirm"
+            android:background="#00DDDDDD"
+            android:text="取消"
+            android:textColor="@color/lightBlueGrey"
+            android:theme="@style/Theme.AppCompat" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

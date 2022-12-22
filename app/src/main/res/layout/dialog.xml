@@ -45,7 +45,7 @@
             android:src="@drawable/a2" />
 
         <TextView
-            android:id="@+id/txtChName"
+            android:id="@+id/txtVoType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/personInfoPic"
@@ -55,7 +55,7 @@
             android:id="@+id/chNameFeature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtChName">
+            android:layout_below="@+id/txtVoType">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -119,7 +119,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/txtEnName"
+            android:id="@+id/txtVoCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/chNameFeature"
@@ -127,10 +127,10 @@
             android:text="英文姓名" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/enNameFeature"
+            android:id="@+id/voCountFeature"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/txtEnName"
+            android:layout_below="@+id/txtVoCount"
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
             app:cardCornerRadius="10dp">
@@ -146,18 +146,18 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/txtbirDate"
+            android:id="@+id/txtvoPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/enNameFeature"
+            android:layout_below="@+id/voCountFeature"
             android:layout_marginTop="15dp"
             android:text="出生年月日" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/birDateFeature"
+            android:id="@+id/voPlaceFeature"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/txtbirDate"
+            android:layout_below="@+id/txtvoPlace"
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
             app:cardCornerRadius="10dp">
@@ -176,18 +176,18 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/txtID"
+            android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/birDateFeature"
+            android:layout_below="@+id/voPlaceFeature"
             android:layout_marginTop="15dp"
             android:text="身分證字號" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/IDFeature"
+            android:id="@+id/dateFeature"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@+id/txtID"
+            android:layout_below="@+id/txtDate"
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
             app:cardCornerRadius="10dp">
@@ -203,18 +203,18 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/txtCardNum"
+            android:id="@+id/txtTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/IDFeature"
+            android:layout_below="@+id/dateFeature"
             android:layout_marginTop="15dp"
             android:text="健保卡號" />
 
         <LinearLayout
-            android:id="@+id/cardNameFeature"
+            android:id="@+id/timeFeature"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_below="@+id/txtCardNum"
+            android:layout_below="@+id/txtTime"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -301,7 +301,7 @@
             android:id="@+id/dialogBtn_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cardNameFeature"
+            android:layout_below="@id/timeFeature"
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
@@ -314,7 +314,7 @@
             android:id="@+id/dialogBtn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cardNameFeature"
+            android:layout_below="@id/timeFeature"
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="30dp"
