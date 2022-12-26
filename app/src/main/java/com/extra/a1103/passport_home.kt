@@ -2,6 +2,7 @@ package com.extra.a1103
 
 import android.app.Activity
 import android.app.Dialog
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.res.Resources.getSystem
 import android.graphics.Bitmap
@@ -13,6 +14,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -26,7 +28,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_passport_home.*
 import kotlinx.android.synthetic.main.activity_passport_home.view.*
 import kotlinx.android.synthetic.main.dialog.*
+import kotlinx.android.synthetic.main.dialog.close
+import kotlinx.android.synthetic.main.dialog.dialogBtn_cancel
+import kotlinx.android.synthetic.main.dialog.dialogBtn_confirm
 import kotlinx.android.synthetic.main.list_view_layout.*
+import kotlinx.android.synthetic.main.popup.view.*
+import kotlinx.android.synthetic.main.vo_dialog.*
 import java.util.*
 import kotlin.math.abs
 
@@ -123,6 +130,7 @@ class passport_home : AppCompatActivity() {
         txt_chName.setOnClickListener {
             sharedPreferencesEdit.clear()
             sharedPreferencesEdit.apply()
+            voTypeDialog(this,this).show()
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CustomAdapter(
@@ -161,7 +169,41 @@ class passport_home : AppCompatActivity() {
 
 
 }
+class spinnerAdapter(var context: Context): BaseAdapter() {
+    val voType= listOf("莫德納 - Moderna","高端 - Medigen","A Z - AstraZeneca","B N T - BioNTech")
+    override fun getCount(): Int {
+        return voType.count()
+    }
 
+    override fun getItem(p0: Int): Any {
+        return voType.get(p0)
+    }
+
+    override fun getItemId(p0: Int): Long {
+        return 0
+    }
+
+    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+        var rootview=LayoutInflater.from(context).inflate(R.layout.popup,p2,false)
+        rootview.voTypeText.text=voType.get(p0)
+        return rootview
+    }
+
+}
+
+class voTypeDialog(context: Context,var activity: Activity):Dialog(context){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.vo_dialog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setDimAmount(0f)
+        voTypeSpinner.adapter=spinnerAdapter(context)
+    }
+
+    override fun show() {
+        super.show()
+    }
+}
 class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
