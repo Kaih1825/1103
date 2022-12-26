@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">1103</string>
+    <string-array name="voTypeArray">
+        <item>莫德納 - Moderna</item>
+        <item>高端 - Medigen</item>
+        <item>A Z - AstraZeneca</item>
+        <item>B N T - BioNTech</item>
+    </string-array>
 </resources>

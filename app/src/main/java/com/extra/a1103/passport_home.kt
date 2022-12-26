@@ -2,6 +2,7 @@ package com.extra.a1103
 
 import android.app.Activity
 import android.app.Dialog
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.res.Resources.getSystem
 import android.graphics.Bitmap
@@ -123,6 +124,7 @@ class passport_home : AppCompatActivity() {
         txt_chName.setOnClickListener {
             sharedPreferencesEdit.clear()
             sharedPreferencesEdit.apply()
+            voEditDialog(this).show()
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = CustomAdapter(
@@ -161,7 +163,18 @@ class passport_home : AppCompatActivity() {
 
 
 }
+class voEditDialog(context: Context):Dialog(context){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.vo_dialog)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setDimAmount(0f)
+    }
 
+    override fun show() {
+        super.show()
+    }
+}
 class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
