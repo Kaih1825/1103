@@ -198,6 +198,14 @@ class voTypeDialog(context: Context,var activity: Activity):Dialog(context){
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setDimAmount(0f)
         voTypeSpinner.adapter=spinnerAdapter(context)
+        voTypeSpinner.setOnFocusChangeListener { view, haveFocus -> run{
+            if(haveFocus){
+                voTypeSpinner.background=activity.resources.getDrawable(R.drawable.spinner_bac_down)
+            }
+            else{
+                voTypeSpinner.background=activity.resources.getDrawable(R.drawable.spinner_bac)
+            }
+        } }
     }
 
     override fun show() {
