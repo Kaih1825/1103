@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.dialog.dialogBtn_cancel
 import kotlinx.android.synthetic.main.dialog.dialogBtn_confirm
 import kotlinx.android.synthetic.main.list_view_layout.*
 import kotlinx.android.synthetic.main.popup.view.*
+import kotlinx.android.synthetic.main.spinner_bac_layout.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import java.util.*
 import kotlin.math.abs
@@ -184,6 +185,12 @@ class spinnerAdapter(var context: Context): BaseAdapter() {
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+        var rootview=LayoutInflater.from(context).inflate(R.layout.spinner_bac_layout,p2,false)
+        rootview.voName.text=voType.get(p0)
+        return rootview
+    }
+
+    override fun getDropDownView(p0: Int, convertView: View?, p2: ViewGroup?): View {
         var rootview=LayoutInflater.from(context).inflate(R.layout.popup,p2,false)
         rootview.voTypeText.text=voType.get(p0)
         return rootview
@@ -198,14 +205,6 @@ class voTypeDialog(context: Context,var activity: Activity):Dialog(context){
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setDimAmount(0f)
         voTypeSpinner.adapter=spinnerAdapter(context)
-        voTypeSpinner.setOnFocusChangeListener { view, haveFocus -> run{
-            if(haveFocus){
-                voTypeSpinner.background=activity.resources.getDrawable(R.drawable.spinner_bac_down)
-            }
-            else{
-                voTypeSpinner.background=activity.resources.getDrawable(R.drawable.spinner_bac)
-            }
-        } }
     }
 
     override fun show() {
