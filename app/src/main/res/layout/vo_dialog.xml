@@ -49,15 +49,11 @@
             app:cardBackgroundColor="#daecff"
             android:layout_below="@id/txtVoType"
             app:cardCornerRadius="10dp">
-            <com.extra.a1103.CustomSpinner
-                android:dropDownHeight="10dp"
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:dropDownVerticalOffset="50dp"
                 android:background="@drawable/spinner_bac"
-                android:popupBackground="@drawable/popup_bac"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:id="@+id/voTypeSpinner"/>
 
         </androidx.cardview.widget.CardView>
