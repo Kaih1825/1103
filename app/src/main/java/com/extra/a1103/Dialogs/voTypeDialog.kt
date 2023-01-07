@@ -12,17 +12,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.PopupWindow
 import android.widget.Spinner
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.extra.a1103.Adapter.recyclerViewCustomAdapter
 import com.extra.a1103.R
 import kotlinx.android.synthetic.main.list_view_layout.*
+import kotlinx.android.synthetic.main.spinner_item.view.*
+import kotlinx.android.synthetic.main.spinner_listview.*
 import kotlinx.android.synthetic.main.spinner_listview.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import spinnerAdapter
 
 
 class voTypeDialog(context: Context, var activity: Activity) : Dialog(context) {
+    var popupWindow:PopupWindow?=null
+    var isOpen=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vo_dialog)
@@ -50,28 +61,67 @@ class voTypeDialog(context: Context, var activity: Activity) : Dialog(context) {
                         Log.e("spinner", "close")
 //                        voTypeSpinner.setSelection(1)
 //                        voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac_down))
-                        var adapter=ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,activity.resources.getStringArray(R.array.voTypeArray))
-                        showPopup(context,voTypeSpinner,adapter)
+                        var array=activity.resources.getStringArray(R.array.voTypeArray)
+                        if(isOpen==1){
+                            popupWindow!!.dismiss()
+                        }
+                        else{
+                            showPopup(context,voTypeSpinner,array)
+                        }
                     }
                 }
                 return true
             }
         })
+
     }
 
     override fun show() {
         super.show()
     }
 
-    fun showPopup(context: Context,spinner:Spinner,adapter: ArrayAdapter<String>){
+    fun showPopup(context: Context,spinner:Spinner,array: Array<String>){
         var view=LayoutInflater.from(context).inflate(R.layout.spinner_listview,null)
-        var popupWindow=PopupWindow(view,spinner.width-10.toPx,150.toPx)
-        popupWindow.isOutsideTouchable=true
-        popupWindow.setBackgroundDrawable(activity.getDrawable(R.drawable.popup_bac))
-        view.listView.adapter=adapter
-        popupWindow.elevation=10f
-        popupWindow.showAsDropDown(spinner)
+        popupWindow=PopupWindow(view,spinner.width-20.toPx,200.toPx)
+        popupWindow!!.isOutsideTouchable=true
+        popupWindow!!.setBackgroundDrawable(activity.getDrawable(R.drawable.popup_bac))
+        view.listView.adapter=adapter(context,array)
+        popupWindow!!.elevation=10f
+        voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac_down))
+        isOpen=1
+        popupWindow!!.showAsDropDown(spinner,10.toPx,0)
+        popupWindow!!.setOnDismissListener {
+            voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac))
+            isOpen=0
+        }
+        view.listView.setOnItemClickListener { adapterView, view, i, l -> run{
+            spinner.setSelection(i)
+            popupWindow!!.dismiss()
+        } }
     }
 
     val Int.toPx: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 }
+
+class adapter(var context: Context,var array:Array<String>): BaseAdapter() {
+    override fun getCount(): Int {
+        return array.count()
+    }
+
+    override fun getItem(p0: Int): Any {
+        return array[p0]
+    }
+
+    override fun getItemId(p0: Int): Long {
+        return 0
+    }
+
+    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+        var view=LayoutInflater.from(context).inflate(R.layout.spinner_item,p2,false)
+        view.itemText.text=array[p0]
+        return view
+    }
+
+}
+
+
