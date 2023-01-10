@@ -41,19 +41,6 @@ class voTypeDialog(context: Context, var activity: Activity) : Dialog(context) {
         window?.setDimAmount(0f)
         voTypeSpinner.adapter = spinnerAdapter(context)
         voTypeSpinner.isClickable=false
-//        voTypeSpinner.setSpinnerEventsListener(object : CustomSpinner.OnSpinnerEventsListener {
-//            override fun onSpinnerOpened(spinner: Spinner) {
-//                // Do something when the spinner is opened
-//                Log.e("spinner", "open")
-//                voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac_down))
-//            }
-//
-//            override fun onSpinnerClosed(spinner: Spinner) {
-//                // Do something when the spinner is closed
-//                Log.e("spinner", "close")
-//                voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac))
-//            }
-//        })
         voTypeSpinner.setOnTouchListener(object :View.OnTouchListener{
             override fun onTouch(p0: View?, p1: MotionEvent?):Boolean {
                 when (p1?.action) {
