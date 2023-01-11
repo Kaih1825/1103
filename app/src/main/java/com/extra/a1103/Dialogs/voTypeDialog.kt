@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.extra.a1103.Adapter.recyclerViewCustomAdapter
 import com.extra.a1103.R
+import kotlinx.android.synthetic.main.activity_passport_home.*
 import kotlinx.android.synthetic.main.list_view_layout.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
 import kotlinx.android.synthetic.main.spinner_listview.*
@@ -31,7 +32,7 @@ import kotlinx.android.synthetic.main.vo_dialog.*
 import spinnerAdapter
 
 
-class voTypeDialog(context: Context, var activity: Activity) : Dialog(context) {
+class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : Dialog(context) {
     var popupWindow:PopupWindow?=null
     var isOpen=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,11 @@ class voTypeDialog(context: Context, var activity: Activity) : Dialog(context) {
 
     override fun show() {
         super.show()
+    }
+
+    override fun cancel() {
+        super.cancel()
+        activity.dialogBackground.visibility = View.INVISIBLE
     }
 
     fun showPopup(context: Context,spinner:Spinner,array: Array<String>){

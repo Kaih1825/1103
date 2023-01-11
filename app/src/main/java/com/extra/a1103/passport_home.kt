@@ -134,12 +134,12 @@ class passport_home : AppCompatActivity() {
         txt_chName.setOnClickListener {
             sharedPreferencesEdit.clear()
             sharedPreferencesEdit.apply()
-            voTypeDialog(this,this).show()
+
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewCustomAdapter(
             arrayOf("1", "2"), arrayOf("默德納", "BNT"), arrayOf("新竹台大醫院\n新竹分院", "新竹台大醫院\n新竹分院"),
-            arrayOf("2021.11.20 13:20", "2021.11.20 13:20"), arrayOf(1, 1, 2), this
+            arrayOf("2021.11.20 13:20", "2021.11.20 13:20"), arrayOf(1, 1, 2), this,this
         )
 //        window.decorView
         Log.e("TAG", mainLayout.isLaidOut.toString())
