@@ -227,5 +227,6 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
     }
     override fun cancel() {
         super.cancel()
+        activity.dialogBackground.visibility= View.INVISIBLE
     }
 }

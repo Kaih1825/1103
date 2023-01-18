@@ -72,7 +72,13 @@
             android:layout_below="@+id/txtVoCount"
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
-            app:cardCornerRadius="10dp"/>
+            app:cardCornerRadius="10dp">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/spinner_bac"
+                android:id="@+id/voCountSpinner"/>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txtvoPlace"
@@ -90,7 +96,11 @@
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
             app:cardCornerRadius="10dp">
-
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/spinner_bac"
+                android:id="@+id/voPlacetSpinner"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -109,7 +119,19 @@
             android:layout_below="@+id/txtDate"
             android:layout_weight="3"
             app:cardBackgroundColor="#daecff"
-            app:cardCornerRadius="10dp"/>
+            app:cardCornerRadius="10dp">
+            <Button
+                android:id="@+id/btn_vodate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="2021.11.19"
+                android:elevation="0dp"
+                android:textAlignment="center"
+                android:background="#00000000"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:textColor="@color/deepBlue"/>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/txtTime"

@@ -23,12 +23,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.extra.a1103.Adapter.recyclerViewCustomAdapter
 import com.extra.a1103.R
+import com.extra.a1103.passport_home
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_passport_home.*
 import kotlinx.android.synthetic.main.list_view_layout.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
 import kotlinx.android.synthetic.main.spinner_listview.*
 import kotlinx.android.synthetic.main.spinner_listview.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
+import kotlinx.android.synthetic.main.vo_dialog.view.*
 import spinnerAdapter
 
 
@@ -40,7 +43,7 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
         setContentView(R.layout.vo_dialog)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.setDimAmount(0f)
-        voTypeSpinner.adapter = spinnerAdapter(context)
+        voTypeSpinner.adapter = spinnerAdapter(context,activity.resources.getStringArray(R.array.voTypeArray))
         voTypeSpinner.isClickable=false
         voTypeSpinner.setOnTouchListener(object :View.OnTouchListener{
             override fun onTouch(p0: View?, p1: MotionEvent?):Boolean {
@@ -62,6 +65,34 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
             }
         })
 
+        voCountSpinner.adapter=spinnerAdapter(context, activity.resources.getStringArray(R.array.voCountArray))
+        voCountSpinner.isClickable=false
+        voCountSpinner.setOnTouchListener(object :View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                if(p1?.action==MotionEvent.ACTION_UP){
+                    showPopup(context,voCountSpinner, activity.resources.getStringArray(R.array.voCountArray))
+                }
+                return true
+            }
+        })
+
+        voPlacetSpinner.adapter=spinnerAdapter(context, activity.resources.getStringArray(R.array.voPlaceArray))
+        voPlacetSpinner.isClickable=false
+        voPlacetSpinner.setOnTouchListener(object :View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                if(p1?.action==MotionEvent.ACTION_UP){
+                    showPopup(context,voPlacetSpinner, activity.resources.getStringArray(R.array.voPlaceArray))
+                }
+                return true
+            }
+        })
+        var datePicker=MaterialDatePicker.Builder.datePicker().setTitleText("").setTheme(R.style.datepicker).build()
+
+        btn_vodate.setOnClickListener {
+            var activuty2=activity as passport_home
+            datePicker.show(activuty2.supportFragmentManager,"")
+
+        }
     }
 
     override fun show() {
@@ -80,11 +111,11 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
         popupWindow!!.setBackgroundDrawable(activity.getDrawable(R.drawable.popup_bac))
         view.listView.adapter=adapter(context,array)
         popupWindow!!.elevation=10f
-        voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac_down))
+        spinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac_down))
         isOpen=1
         popupWindow!!.showAsDropDown(spinner,10.toPx,0)
         popupWindow!!.setOnDismissListener {
-            voTypeSpinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac))
+            spinner.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.spinner_bac))
             isOpen=0
         }
         view.listView.setOnItemClickListener { adapterView, view, i, l -> run{
