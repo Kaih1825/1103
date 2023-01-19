@@ -150,6 +150,12 @@
                 app:cardBackgroundColor="#daecff"
                 android:layout_below="@id/txtTime"
                 app:cardCornerRadius="10dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_voTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"/>
+
             </androidx.cardview.widget.CardView>
 
 

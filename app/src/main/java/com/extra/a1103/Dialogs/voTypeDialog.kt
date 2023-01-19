@@ -25,6 +25,7 @@ import com.extra.a1103.Adapter.recyclerViewCustomAdapter
 import com.extra.a1103.R
 import com.extra.a1103.passport_home
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
 import kotlinx.android.synthetic.main.activity_passport_home.*
 import kotlinx.android.synthetic.main.list_view_layout.*
 import kotlinx.android.synthetic.main.spinner_item.view.*
@@ -33,6 +34,7 @@ import kotlinx.android.synthetic.main.spinner_listview.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import kotlinx.android.synthetic.main.vo_dialog.view.*
 import spinnerAdapter
+import java.util.*
 
 
 class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : Dialog(context) {
@@ -86,13 +88,39 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
                 return true
             }
         })
-        var datePicker=MaterialDatePicker.Builder.datePicker().setTitleText("").setTheme(R.style.datepicker).build()
+        var datePicker=MaterialDatePicker.Builder.datePicker().setTheme(R.style.datepicker).build()
 
         btn_vodate.setOnClickListener {
-            var activuty2=activity as passport_home
-            datePicker.show(activuty2.supportFragmentManager,"")
-
+            var activity2 = activity as passport_home
+            datePicker.show(activity2.supportFragmentManager, "")
         }
+        var calender=Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        datePicker.addOnPositiveButtonClickListener {
+            calender.timeInMillis=datePicker.selection!!
+            var month="";
+            if(calender.get(Calendar.MONTH)+1<10){
+                month="0${calender.get(Calendar.MONTH)+1}"
+            }
+            else{
+                month=(calender.get(Calendar.MONTH)+1).toString()
+            }
+            var day=""
+            if(calender.get(Calendar.DATE)<10){
+                day="0${calender.get(Calendar.DATE)}"
+            }
+            else{
+                day=calender.get(Calendar.DATE).toString()
+            }
+            var output="${calender.get(Calendar.YEAR)}.${month}.${day}"
+            btn_vodate.text=output
+        }
+        var timePicker=MaterialTimePicker.Builder().setTheme(R.style.timePicker).build()
+
+        btn_voTime.setOnClickListener {
+            var activity2=activity as passport_home
+            timePicker.show(activity2.supportFragmentManager,"")
+        }
+
     }
 
     override fun show() {

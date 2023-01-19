@@ -6,4 +6,7 @@
     <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
         <item name="android:textColor">@color/lightBlue</item>
     </style>
+    <style name="timePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="android:colorPrimary">@color/deepBlue</item>
+    </style>
 </resources>
