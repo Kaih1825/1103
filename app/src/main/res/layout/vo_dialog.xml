@@ -154,7 +154,13 @@
                     android:id="@+id/btn_voTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null"/>
+                    android:elevation="0dp"
+                    android:text="11:00 AM"
+                    android:textAlignment="center"
+                    android:background="#00000000"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/deepBlue"/>
 
             </androidx.cardview.widget.CardView>
 

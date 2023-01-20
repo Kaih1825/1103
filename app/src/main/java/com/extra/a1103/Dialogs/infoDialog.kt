@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import com.extra.a1103.R
 import com.extra.a1103.passport_home
@@ -159,6 +160,11 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             super.cancel()
         }
         dialogBtn_confirm.setOnClickListener {
+            var regex=Regex("^[A-Z][0-9]{9}$")
+            if(!edt_id.text.isEmpty() && !regex.matches(edt_id.text)){
+                edt_id.setError("格式錯誤")
+                return@setOnClickListener
+            }
             if (!edt_cnName.text.isEmpty()) {
                 sharedPreferencesEdit.putString("cnName", edt_cnName.text.toString())
 

@@ -7,6 +7,6 @@
         <item name="android:textColor">@color/lightBlue</item>
     </style>
     <style name="timePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
-        <item name="android:colorPrimary">@color/deepBlue</item>
+        <item name="colorPrimary">@color/deepBlue</item>
     </style>
 </resources>
