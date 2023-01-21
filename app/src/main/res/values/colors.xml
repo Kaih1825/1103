@@ -10,5 +10,7 @@
     <color name="deepBlue">#0165C5</color>
     <color name="lightBlue">#daecff</color>
     <color name="lightBlueGrey">#A4B1BF</color>
+    <color name="green">#00A510</color>
+    <color name="grey">#c0c0c0</color>
     <color name="trasnparent">#00FFFFFF</color>
 </resources>

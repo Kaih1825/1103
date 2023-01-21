@@ -164,7 +164,7 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
         }
         edt_id.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
+
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -175,7 +175,7 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                TODO("Not yet implemented")
+
             }
 
         })

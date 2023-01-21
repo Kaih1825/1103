@@ -306,7 +306,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/closw_button_background"
-            android:text="關閉"
+            android:text="確認"
             android:textColor="#12C741"
             android:theme="@style/Theme.AppCompat" />
 
