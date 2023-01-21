@@ -70,4 +70,3 @@ public class CustomHorizontalScrollView<ScrollViewListenner> extends HorizontalS
     }
 
 }
-
