@@ -11,6 +11,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import com.extra.a1103.R
 import com.extra.a1103.passport_home
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -120,6 +122,7 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
         edt_cardId2.isEnabled = false
         edt_cardId3.isEnabled = false
         edt_cardId4.isEnabled = false
+
         edt_cardId1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 edt_cardId2.isEnabled = edt_cardId1.text.isNotEmpty()
@@ -159,12 +162,24 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             activity.dialogBackground.visibility = View.INVISIBLE
             super.cancel()
         }
-        dialogBtn_confirm.setOnClickListener {
-            var regex=Regex("^[A-Z][0-9]{9}$")
-            if(!edt_id.text.isEmpty() && !regex.matches(edt_id.text)){
-                edt_id.setError("格式錯誤")
-                return@setOnClickListener
+        edt_id.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
             }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var regex=Regex("^[A-Z][0-9]{9}$")
+                if(!edt_id.text.isEmpty() && !regex.matches(edt_id.text)){
+                    edt_id.setError("格式錯誤")
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+        dialogBtn_confirm.setOnClickListener {
             if (!edt_cnName.text.isEmpty()) {
                 sharedPreferencesEdit.putString("cnName", edt_cnName.text.toString())
 

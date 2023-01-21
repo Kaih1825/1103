@@ -19,6 +19,7 @@ import com.extra.a1103.Dialog.voTypeDialog
 import com.extra.a1103.R
 import com.extra.a1103.passport_home
 import kotlinx.android.synthetic.main.activity_passport_home.*
+import kotlinx.android.synthetic.main.vo_dialog.*
 
 
 class recyclerViewCustomAdapter(
@@ -91,6 +92,12 @@ class recyclerViewCustomAdapter(
                 hosName.text = hosNameArray[position]
                 date.text = dateArray[position]
 
+                var sp=context.getSharedPreferences("getVoInfo",Context.MODE_PRIVATE)
+                var name=activity.resources.getStringArray(R.array.voTypeArray)[sp.getInt("voTypeSelection_${position}",0)]
+                voName.text=name.substring(0,name.indexOf("-"))
+                hosName.text=activity.resources.getStringArray(R.array.voPlaceArray)[sp.getInt("voPlaceSelection_${position}",0)]
+                date.text=sp.getString("voDate_${position}","2021.11.19")
+
                 voClick.setOnClickListener {
                     if (position == 0) {
                         activity.scrollView.smoothScrollTo(0, 0)
@@ -105,7 +112,7 @@ class recyclerViewCustomAdapter(
                 }
 
                 btnEdit.setOnClickListener {
-                    voTypeDialog(context,activity,position).show()
+                    voTypeDialog(context,activity,position,voName,hosName,date).show()
                     setBlurBackground()
                     activity.dialogBackground.visibility = View.VISIBLE
                 }

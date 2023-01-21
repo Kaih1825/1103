@@ -40,6 +40,7 @@ import kotlinx.android.synthetic.main.spinner_listview.*
 import kotlinx.android.synthetic.main.spinner_listview.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import kotlinx.android.synthetic.main.vo_dialog.view.*
+import org.w3c.dom.Text
 import spinnerAdapter
 import java.sql.Time
 import java.time.LocalDateTime
@@ -49,7 +50,7 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 
-class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : Dialog(context) {
+class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var voName:TextView,var hasName:TextView,var date:TextView) : Dialog(context) {
     var popupWindow:PopupWindow?=null
     var isOpen=0
     @SuppressLint("SetTextI18n")
@@ -174,15 +175,16 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
         voPlacetSpinner.setSelection(sp.getInt("voPlaceSelection_${numOfVo}",0))
         btn_vodate.text=sp.getString("voDate_${numOfVo}","2021.11.19")
         btn_voTime.text=sp.getString("voTime_${numOfVo}","11:00 AM")
-
         dialogBtn_confirm.setOnClickListener {
+            voName.text=voTypeSpinner.selectedItem.toString().substring(0,voTypeSpinner.selectedItem.toString().indexOf("-"))
+            hasName.text=voPlacetSpinner.selectedItem.toString()
+            date.text=btn_vodate.text.toString()
             spEdit.putInt("voTypeSelection_${numOfVo}",voTypeSpinner.selectedItemPosition)
             spEdit.putInt("voCountSelection_${numOfVo}",voCountSpinner.selectedItemPosition)
             spEdit.putInt("voPlaceSelection_${numOfVo}",voPlacetSpinner.selectedItemPosition)
             spEdit.putString("voDate_${numOfVo}",btn_vodate.text.toString())
             spEdit.putString("voTime_${numOfVo}",btn_voTime.text.toString())
             spEdit.apply()
-            Log.e("VOCountSpinner", voCountSpinner.selectedItemPosition.toString(), )
             cancel()
             activity.editSuccess.visibility= View.VISIBLE
             activity.dialogBackground.visibility = View.VISIBLE

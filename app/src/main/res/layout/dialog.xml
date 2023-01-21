@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="個人資料"
+            android:text="編輯個人資料"
             android:textColor="#2d1c50"
             android:textSize="20dp"
             android:textStyle="bold" />
