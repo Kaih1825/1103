@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    android:elevation="100dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新增實聯制"
+                android:textColor="@color/green"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_below="@+id/title"
+            android:id="@+id/txt_placeNum"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="場所代號"
+            android:textColor="@color/grey" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/txt_placeNum"
+            android:id="@+id/placeNumFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/lightGreen"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="15dp">
+
+            <EditText
+                android:text="1234 2234 3234 4234"
+                android:id="@+id/edt_placeNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:inputType="number"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:maxLength="19"
+                android:textAlignment="center"
+                android:textColor="@color/green" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_Date"
+            android:layout_below="@id/placeNumFeature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="日期"
+            android:textColor="@color/grey" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/txt_Date"
+            android:id="@+id/dateFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/lightGreen"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="15dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="16dp"
+                android:text="2022/03/27"
+                android:background="@null" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_below="@+id/dateFeature"
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="時間"
+            android:textColor="@color/grey" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/txt_time"
+            android:id="@+id/timeFeature"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardBackgroundColor="@color/lightGreen"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="15dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                android:textSize="16dp"
+                android:text="09:30 AM"
+                android:background="@null" />
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/timeFeature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textColor="@color/grey"
+                android:layout_marginRight="10dp"
+                android:text="取消"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_addItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/closw_button_background"
+                android:text="新增"
+                android:textColor="@color/green"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

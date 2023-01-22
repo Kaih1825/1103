@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Parcel
 import android.os.Parcelable
+import android.provider.CalendarContract.Calendars
 import android.util.Log
 import android.util.Range
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import android.widget.BaseAdapter
 import android.widget.PopupWindow
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -43,6 +45,7 @@ import kotlinx.android.synthetic.main.vo_dialog.view.*
 import org.w3c.dom.Text
 import spinnerAdapter
 import java.sql.Time
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -53,7 +56,7 @@ import java.util.*
 class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var voName:TextView,var hasName:TextView,var date:TextView) : Dialog(context) {
     var popupWindow:PopupWindow?=null
     var isOpen=0
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.vo_dialog)
@@ -106,9 +109,7 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
             }
         })
         var constraintBuilder=CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.before(Date().time)).setEnd(Date().time)
-        var datePicker=MaterialDatePicker.Builder.datePicker().setTitleText(" ").setCalendarConstraints(constraintBuilder.build()).setTheme(R.style.datepicker).build()
-
-
+        var datePicker=MaterialDatePicker.Builder.customDatePicker(mydateSelection()).setTitleText(" ").setCalendarConstraints(constraintBuilder.build()).setTheme(R.style.datepicker).build()
         btn_vodate.setOnClickListener {
             var activity2 = activity as passport_home
             datePicker.show(activity2.supportFragmentManager, "")
@@ -253,6 +254,19 @@ class adapter(var context: Context,var array:Array<String>): BaseAdapter() {
         var view=LayoutInflater.from(context).inflate(R.layout.spinner_item,p2,false)
         view.itemText.text=array[p0]
         return view
+    }
+
+}
+
+@SuppressLint("RestrictedApi")
+class mydateSelection: SingleDateSelector() {
+    override fun getSelectionDisplayString(context: Context): String {
+        var simpleDateFormat=SimpleDateFormat("EEEE,MM月,DD")
+        var calendar=Calendar.getInstance()
+        if(selection!=null){
+            calendar.timeInMillis= selection as Long
+        }
+        return simpleDateFormat.format(calendar.time)
     }
 
 }

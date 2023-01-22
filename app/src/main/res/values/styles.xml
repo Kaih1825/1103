@@ -2,11 +2,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="datepicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/deepBlue</item>
+<!--        將主題疊加在上面-->
+        <item name="shapeAppearanceOverlay">@style/round</item>
     </style>
     <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
         <item name="android:textColor">@color/lightBlue</item>
     </style>
     <style name="timePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
         <item name="colorPrimary">@color/deepBlue</item>
+        <item name="shapeAppearanceOverlay">@style/round</item>
+    </style>
+    <style name="round">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
     </style>
 </resources>
