@@ -8,7 +8,82 @@
     android:orientation="vertical"
     tools:context=".registration_home">
 
-
+    <androidx.cardview.widget.CardView
+        android:id="@+id/delSuccess"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/white">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_margin="30dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/a17"/>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/green"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="刪除成功"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/askDialog"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="50dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_margin="50dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_askTitle"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/green"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_margin="50dp"
+                android:text="確認要刪除\n以勾選項目?"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_dialogCancelConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/trasnparent"
+                    android:text="取消"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_dialogDelConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/del_button_background"
+                    android:layout_marginLeft="15dp"
+                    android:text="刪除"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,6 +131,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/test"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -63,18 +139,19 @@
                         android:src="@drawable/a24"
                         app:tint="@color/grey" />
 
-                    <EditText
-                        android:id="@+id/edt_keyword"
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_keyword"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
-                        android:background="@color/trasnparent"
-                        android:hint="請選擇日期"
-                        android:textColor="@color/green"
-                        android:includeFontPadding="false"
-                        android:textColorHint="@color/grey"
+                        android:background="@null"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:text="請選擇日期"
+                        android:textColor="@color/grey"
+                        android:gravity="left|center_vertical"
                         android:textSize="14dp" />
 
                     <TextView
@@ -135,6 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_alignParentBottom="true" />
+
         </RelativeLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
@@ -150,12 +228,13 @@
                 android:orientation="horizontal">
                 <ImageButton
                     android:id="@+id/btn_del"
+
                     android:background="@color/trasnparent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/a18"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="55dp"/>
                 <ImageButton
                     android:id="@+id/btn_add"
                     android:background="@color/trasnparent"
@@ -175,6 +254,77 @@
             app:layout_anchor="@id/bottomNavigationView"
             app:maxImageSize="80dp"
             app:tint="@null" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomNavigationDeleteView"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginRight="80dp"
+                    android:layout_weight="1">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_delCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="#DDDDDD"
+                        app:cardElevation="0dp"
+                        android:layout_marginVertical="3dp"
+                        app:cardCornerRadius="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginVertical="5dp"
+                            android:text="取消"
+                            android:gravity="center"
+                            android:textSize="18dp"
+                            android:textColor="@color/grey"
+                            android:includeFontPadding="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_delConfirm"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="50dp"
+                        app:cardBackgroundColor="#D60000"
+                        android:layout_marginVertical="3dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginVertical="5dp"
+                            android:text="刪除"
+                            android:gravity="center"
+                            android:textSize="18dp"
+                            android:textColor="@color/white"
+                            android:includeFontPadding="false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <RelativeLayout
         android:id="@+id/dialogBackground"
@@ -191,7 +341,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#6AFFFFFF" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addSuccess"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/a21"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/green"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="新增成功"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </RelativeLayout>
+
 
 
 </RelativeLayout>

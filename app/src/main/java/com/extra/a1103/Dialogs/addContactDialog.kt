@@ -9,10 +9,12 @@ import android.graphics.drawable.ColorDrawable
 import android.icu.util.Calendar
 import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import com.extra.a1103.Methods.sql
 import com.extra.a1103.R
 import com.extra.a1103.registration_home
 import com.google.android.material.datepicker.CalendarConstraints
@@ -23,11 +25,13 @@ import com.google.android.material.datepicker.SingleDateSelector
 import com.google.android.material.timepicker.MaterialTimePicker
 import kotlinx.android.synthetic.main.activity_registration_home.*
 import kotlinx.android.synthetic.main.add_contact_dialog_layout.*
+import kotlinx.android.synthetic.main.spinner_listview.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Vector
 
-class addContactDialog(context: Context,var activity: Activity): Dialog(context) {
+class addContactDialog(context: Context,var activity: Activity,var isCheck:Vector<Boolean>): Dialog(context) {
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +116,15 @@ class addContactDialog(context: Context,var activity: Activity): Dialog(context)
             btn_time.text="${hour}:${min} ${am_pm}"
         }
         btn_addItem.setOnClickListener {
+            sql.insert(context,btn_date.text.toString(),btn_time.text.toString(),edt_placeNum.text.toString())
+            sql.addAllToListView(context,activity,isCheck,activity.list)
+            Handler().postDelayed({
+                activity.dialogBackground.visibility= View.GONE
+                activity.addSuccess.visibility=View.GONE
+            },2000)
             cancel()
+            activity.dialogBackground.visibility= View.VISIBLE
+            activity.addSuccess.visibility=View.VISIBLE
         }
 
         btn_cancel.setOnClickListener {

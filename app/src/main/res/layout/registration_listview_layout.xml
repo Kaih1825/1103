@@ -23,12 +23,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_Date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2022/03/27"
             android:textColor="@color/green" />
 
         <TextView
+            android:id="@+id/txt_Time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14:20 PM"
@@ -36,6 +38,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/txt_placeNum"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -55,4 +58,9 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/txt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </LinearLayout>

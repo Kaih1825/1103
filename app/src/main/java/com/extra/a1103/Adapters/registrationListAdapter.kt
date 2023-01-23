@@ -3,6 +3,7 @@ package com.extra.a1103.Adapters
 import android.annotation.SuppressLint
 import android.app.ActionBar.LayoutParams
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
 import android.opengl.Visibility
@@ -12,21 +13,23 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.extra.a1103.Methods.sql
 import com.extra.a1103.R
 import com.extra.a1103.registration_home
+import kotlinx.android.synthetic.main.activity_registration_home.*
 import kotlinx.android.synthetic.main.registration_listview_layout.view.*
 import java.net.Authenticator.RequestorType
 import java.util.Vector
+import java.util.logging.Handler
 
-class registrationListAdapter(var context:Context,var activity: Activity,var isCheck:Vector<Boolean>):BaseAdapter(){
+class registrationListAdapter(var context:Context,var activity: Activity,var isCheck:Vector<Boolean>,var id:Vector<String>,var date:Vector<String>,var time:Vector<String>,var placeNum:Vector<String>):BaseAdapter(){
 
-    val Int.toPx: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
     override fun getCount(): Int {
-        return isCheck.count()
+        return date.count()
     }
 
     override fun getItem(p0: Int): Any {
-        return isCheck
+        return id[p0]
     }
 
     override fun getItemId(p0: Int): Long {
@@ -45,12 +48,11 @@ class registrationListAdapter(var context:Context,var activity: Activity,var isC
                     }
                     MotionEvent.ACTION_UP->{
                         dx=p1!!.x-dx
-                        Log.e("dx", dx.toString() )
-                        if(dx>50.toPx){
+                        if(dx>0){
                             v.btn_ckb.visibility=View.VISIBLE
                             v.btn_del.visibility=View.GONE
                         }
-                        if(dx<((-50).toPx)){
+                        if(dx<0){
                             v.btn_ckb.visibility=View.GONE
                             v.btn_del.visibility=View.VISIBLE
                         }
@@ -77,6 +79,28 @@ class registrationListAdapter(var context:Context,var activity: Activity,var isC
             }
             isCheck[p0]=!isCheck[p0]
         }
+        v.txt_id.text=id[p0]
+        v.txt_Date.text=date[p0]
+        v.txt_Time.text=time[p0]
+        v.txt_placeNum.text=placeNum[p0]
+        v.btn_del.setOnClickListener {
+            activity.askDialog.visibility=View.VISIBLE
+            activity.txt_askTitle.text="請確認是否刪除?"
+            activity.btn_dialogDelConfirm.setOnClickListener {
+                sql.delete(context, v.txt_id.text.toString())
+                isCheck.removeAt(p0)
+                sql.addAllToListView(context, activity, isCheck, activity.list)
+                activity.delSuccess.visibility=View.VISIBLE
+                activity.askDialog.visibility=View.GONE
+                android.os.Handler().postDelayed({
+                    activity.delSuccess.visibility=View.GONE
+                },2000)
+            }
+            activity.btn_dialogCancelConfirm.setOnClickListener {
+                activity.askDialog.visibility=View.GONE
+            }
+        }
+
         return v
     }
 
