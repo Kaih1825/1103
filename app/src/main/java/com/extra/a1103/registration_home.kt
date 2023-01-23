@@ -121,7 +121,6 @@ class registration_home : AppCompatActivity() {
                 }
                 delSuccess.visibility=View.VISIBLE
                 askDialog.visibility=View.GONE
-                Log.e("TAG", "onCss", )
                 android.os.Handler().postDelayed({
                     delSuccess.visibility=View.GONE
                 },2000)
