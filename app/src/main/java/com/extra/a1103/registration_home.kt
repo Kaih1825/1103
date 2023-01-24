@@ -33,6 +33,7 @@ import kotlin.math.log
 
 class registration_home : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
+    var isCheck=Vector<Boolean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration_home)
@@ -71,7 +72,7 @@ class registration_home : AppCompatActivity() {
             btn_keyword.text=output
             btn_keyword.setTextColor(resources.getColor(R.color.green))
         }
-        var isCheck=Vector<Boolean>()
+
         sql.addAllToListView(this,this,isCheck,list)
         btn_add.setOnClickListener {
             addContactDialog(this,this, isCheck).show()
@@ -171,6 +172,11 @@ class registration_home : AppCompatActivity() {
             )
         }
         dialogBackground.visibility=View.VISIBLE
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        sql.addAllToListView(this,this,isCheck,list)
     }
 }
 

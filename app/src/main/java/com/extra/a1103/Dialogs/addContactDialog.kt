@@ -139,6 +139,17 @@ class addContactDialog(context: Context,var activity: Activity,var isCheck:Vecto
         super.cancel()
         activity.dialogBackground.visibility= View.GONE
     }
+
+    companion object {
+        fun addSuccess(activity:Activity){
+            Handler().postDelayed({
+                activity.dialogBackground.visibility= View.GONE
+                activity.addSuccess.visibility=View.GONE
+            },2000)
+            activity.dialogBackground.visibility= View.VISIBLE
+            activity.addSuccess.visibility=View.VISIBLE
+        }
+    }
 }
 
 @SuppressLint("RestrictedApi")

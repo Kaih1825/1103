@@ -11,6 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/delSuccess"
         android:visibility="gone"
+        app:cardElevation="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -345,6 +346,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/addSuccess"
             android:visibility="gone"
+            app:cardElevation="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
