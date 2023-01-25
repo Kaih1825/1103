@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -42,6 +43,11 @@ class registration_home : AppCompatActivity() {
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
             navigationBarColor = Color.TRANSPARENT
+        }
+        var getIntentExtra=intent.getStringExtra("action")
+        if(getIntentExtra=="startAddVoDialog"){
+            addContactDialog(this,this, isCheck).show()
+            Handler().postDelayed({setBlurBackground()},1)
         }
         var constraintBuilder=
             CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.before(Date().time)).setEnd(
@@ -177,6 +183,11 @@ class registration_home : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         sql.addAllToListView(this,this,isCheck,list)
+        var getIntentExtra=intent.getStringExtra("action")
+        if(getIntentExtra=="startAddVoDialog"){
+            addContactDialog(this,this, isCheck).show()
+            Handler().postDelayed({setBlurBackground()},1)
+        }
     }
 }
 

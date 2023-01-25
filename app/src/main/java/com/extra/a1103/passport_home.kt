@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog.show
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources.getSystem
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -59,6 +60,15 @@ class passport_home : AppCompatActivity() {
             statusBarColor = Color.TRANSPARENT
             navigationBarColor = Color.TRANSPARENT
         }
+        var getIntentExtra= intent.getStringExtra("action")
+        if(getIntentExtra=="startInfoDialog"){
+
+            dialogBackground.visibility = View.VISIBLE
+            infoDialog(this, this).show()
+            Handler().postDelayed({
+                setBlurBackground()
+            },1)
+        }
         btn_back.setOnClickListener(View.OnClickListener {
             finish()
         })
@@ -87,23 +97,16 @@ class passport_home : AppCompatActivity() {
                         var endY: Int = event.rawY.toInt()
                         var spaceX = endX - startX
                         var spaceY = endY - startY
-                        Log.e("TAG", spaceX.toString())
                         if (abs(spaceX) >= scrollDx / 2 && spaceX > 0) {
-                            Log.e("scrollDx", scrollDx.toString())
-                            Log.e("MOVE", "-1")
-                            Log.e("MoveX", (scrollView.scrollX).toInt().toString())
                             scrollView.smoothScrollTo(
                                 (scrollView.scrollX - scrollDx - 50.toPx).toInt(),
                                 0
                             )
                         } else if (abs(spaceX) >= scrollDx / 2 && spaceX < 0) {
-                            Log.e("scrollDx", scrollDx.toString())
-                            Log.e("MOVE", "-1")
                             scrollView.smoothScrollTo(
                                 (scrollView.scrollX + scrollDx + 50.toPx).toInt(),
                                 0
                             )
-                            Log.e("MoveX", (scrollView.scrollX).toInt().toString())
                         }
                     }
                 }
@@ -142,11 +145,23 @@ class passport_home : AppCompatActivity() {
             arrayOf("2021.11.20 13:20", "2021.11.20 13:20"), arrayOf(1, 1, 2), this,this
         )
 //        window.decorView
-        Log.e("TAG", mainLayout.isLaidOut.toString())
         img_personalInfo.setOnClickListener {
             setBlurBackground()
             dialogBackground.visibility = View.VISIBLE
             infoDialog(this, this).show()
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        var getIntentExtra= intent.getStringExtra("action")
+        if(getIntentExtra=="startInfoDialog"){
+
+            dialogBackground.visibility = View.VISIBLE
+            infoDialog(this, this).show()
+            Handler().postDelayed({
+                setBlurBackground()
+            },1)
         }
     }
 

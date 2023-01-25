@@ -23,4 +23,7 @@
         <item>豐安醫院</item>
         <item>衛生福利部臺南醫院</item>
     </string-array>
+    <string name="appwidget_text">編輯個人資料</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

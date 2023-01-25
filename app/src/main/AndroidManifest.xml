@@ -15,6 +15,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.1103"
         tools:targetApi="31">
+        <receiver
+            android:name=".scanContactWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.appwidget.action.click.scanContact" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/scan_contact_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".addContactWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.appwidget.action.click.addContact" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/add_contact_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".EditInfoWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.appwidget.action.click.editInfo" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/edit_info_widget_info" />
+        </receiver>
+
         <activity
             android:name=".scan_contact"
             android:exported="false" />
