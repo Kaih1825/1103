@@ -5,7 +5,7 @@
     android:initialLayout="@layout/edit_info_widget"
     android:minWidth="40dp"
     android:minHeight="40dp"
-    android:previewImage="@drawable/a29"
+    android:previewImage="@drawable/a34"
 
     android:previewLayout="@layout/edit_info_widget"
     android:targetCellWidth="1"
