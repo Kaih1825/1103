@@ -1,37 +1,26 @@
 package com.extra.a1103.Dialog
 
 import android.annotation.SuppressLint
-import android.app.ActionBar.LayoutParams
 import android.app.Activity
 import android.app.Dialog
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.os.Parcel
-import android.os.Parcelable
-import android.provider.CalendarContract.Calendars
 import android.util.Log
-import android.util.Range
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
-import android.widget.PopupWindow
-import android.widget.Spinner
-import android.widget.TextView
-import androidx.core.util.Pair
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.extra.a1103.Adapter.recyclerViewCustomAdapter
+import android.widget.*
 import com.extra.a1103.R
-import com.extra.a1103.databinding.DialogBinding
+import com.extra.a1103.RemoteViewsFactories.showVoListRemoteViewsService
+import com.extra.a1103.Widgets.ShowVoInfo5x2
 import com.extra.a1103.passport_home
 import com.google.android.material.datepicker.*
 import com.google.android.material.timepicker.*
@@ -42,14 +31,8 @@ import kotlinx.android.synthetic.main.spinner_listview.*
 import kotlinx.android.synthetic.main.spinner_listview.view.*
 import kotlinx.android.synthetic.main.vo_dialog.*
 import kotlinx.android.synthetic.main.vo_dialog.view.*
-import org.w3c.dom.Text
 import spinnerAdapter
-import java.sql.Time
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 
@@ -187,6 +170,15 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
             spEdit.putString("voTime_${numOfVo}",btn_voTime.text.toString())
             spEdit.apply()
             cancel()
+            val appWidgetManager=AppWidgetManager.getInstance(context)
+            val rv=RemoteViews(context.packageName, R.layout.show_vo_info5x2)
+            val listIntent= Intent(context, showVoListRemoteViewsService::class.java)
+            rv.setRemoteAdapter(R.id.list,listIntent)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, ShowVoInfo5x2::class.java)
+            )
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list)
+
             activity.editSuccess.visibility= View.VISIBLE
             activity.dialogBackground.visibility = View.VISIBLE
             Handler().postDelayed({

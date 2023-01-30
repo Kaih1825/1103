@@ -1,14 +1,18 @@
 package com.extra.a1103.Widgets
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
-import android.widget.ArrayAdapter
+import android.util.Log
 import android.widget.RemoteViews
+import androidx.core.content.ContextCompat.startActivity
 import com.extra.a1103.R
 import com.extra.a1103.RemoteViewsFactories.showVoListRemoteViewsService
+import com.extra.a1103.passport_home
 
 /**
  * Implementation of App Widget functionality.
@@ -32,6 +36,18 @@ class ShowVoInfo5x2 : AppWidgetProvider() {
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
+        if(intent!=null){
+            if(intent.action.equals("com.appwidget.action.click.editInfo")){
+                val intent=Intent(context,passport_home::class.java)
+                intent.flags=FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra("action","startInfoDialog")
+                startActivity(context!!,intent,null)
+            }
+        }
+    }
 }
 
 internal fun updateAppWidget_showVoInfo(
@@ -42,12 +58,18 @@ internal fun updateAppWidget_showVoInfo(
     val widgetText = context.getString(R.string.appwidget_text)
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.show_vo_info5x2)
-    val adapter=ArrayAdapter(context,android.R.layout.simple_list_item_1,context.resources.getStringArray(R.array.voPlaceArray))
-    var intent=Intent(context, showVoListRemoteViewsService().javaClass)
-    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-    intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-    views.setRemoteAdapter(R.id.list,intent)
+    val editIntent=Intent(context,ShowVoInfo5x2::class.java)
+    editIntent.action="com.appwidget.action.click.editInfo"
+    val pendingIntent= PendingIntent.getBroadcast(context,0,editIntent,0)
+    views.setOnClickPendingIntent(R.id.btn_edit,pendingIntent)
+    val sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE)
+    views.setTextViewText(R.id.txt_name,sharedPreferences.getString("cnName", "王曉明"))
+    val listIntent=Intent(context,showVoListRemoteViewsService::class.java)
+    views.setRemoteAdapter(R.id.list,listIntent)
+
+
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
+    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.list)
 }

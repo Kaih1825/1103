@@ -5,10 +5,10 @@
     android:initialLayout="@layout/show_vo_info5x2"
     android:minWidth="320dp"
     android:minHeight="110dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/baseline_mode_edit_24"
     android:previewLayout="@layout/show_vo_info5x2"
     android:resizeMode="vertical"
     android:targetCellWidth="5"
-    android:targetCellHeight="4"
-    android:updatePeriodMillis="86400000"
+    android:targetCellHeight="2"
+    android:updatePeriodMillis="1"
     android:widgetCategory="home_screen" />

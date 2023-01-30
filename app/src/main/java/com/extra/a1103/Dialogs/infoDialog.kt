@@ -2,6 +2,8 @@ package com.extra.a1103.Dialog
 
 import android.app.Activity
 import android.app.Dialog
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,8 +14,10 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.RemoteViews
 import androidx.core.widget.addTextChangedListener
 import com.extra.a1103.R
+import com.extra.a1103.Widgets.ShowVoInfo5x2
 import com.extra.a1103.passport_home
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_passport_home.*
@@ -226,6 +230,10 @@ class infoDialog(context: Context, var activity: Activity) : Dialog(context) {
             }.${sharedPreferences.getString("birDay", "18")}"
             sharedPreferencesEdit.putBoolean("gender", genderSwitch.isChecked)
             sharedPreferencesEdit.apply()
+            var appWidgetManager=AppWidgetManager.getInstance(context)
+            var rv=RemoteViews(context.packageName,R.layout.show_vo_info5x2)
+            rv.setTextViewText(R.id.txt_name,sharedPreferences.getString("cnName", "王曉明"))
+            appWidgetManager.updateAppWidget(ComponentName(context,ShowVoInfo5x2::class.java),rv)
             saveAndCancel()
         }
     }

@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.1103.AppWidget.Container"
+    android:layout_width="140dp"
+    android:layout_height="140dp"
+    android:background="@drawable/white_ra"
+    android:backgroundTint="@color/deepBlue"
+    android:theme="@style/Theme.1103.AppWidgetContainer">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="疫苗護照"
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+</RelativeLayout>

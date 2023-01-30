@@ -173,7 +173,7 @@ class registration_home : AppCompatActivity() {
                 BlurTransformation(
                     context = this@registration_home,
                     radius = 25f,
-                    sampling = 5f
+                    sampling = 1f
                 )
             )
         }

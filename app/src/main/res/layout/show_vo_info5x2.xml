@@ -12,18 +12,20 @@
         android:layout_height="match_parent"
         android:background="@drawable/widget_left_bac"
         android:backgroundTint="@color/deepBlue"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:paddingVertical="20dp"
-        android:paddingLeft="20dp">
+        android:paddingLeft="10dp">
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="疫苗護照"
-            android:textSize="25dp"
+            android:textSize="15dp"
+            android:layout_centerHorizontal="true"
             android:textStyle="bold"
             android:textColor="@color/white"/>
         <LinearLayout
+            android:layout_centerHorizontal="true"
             android:id="@+id/layout_info"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
@@ -31,17 +33,21 @@
             android:layout_marginTop="40dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/a27"/>
             <TextView
+                android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="王曉明"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:textSize="13dp"
+                android:maxLines="1"
+                android:layout_marginLeft="2dp"
                 android:textStyle="bold"/>
         </LinearLayout>
         <ImageButton
@@ -57,16 +63,17 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="@drawable/widget_right_bac"
-        android:layout_weight="5">
+        android:backgroundTint="@color/white"
+        android:layout_weight="6">
         <ListView
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-            android:layout_marginRight="30dp"
+            android:fadeScrollbars="false"
+            android:layout_marginRight="10dp"
             android:layout_marginVertical="30dp"
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="110dp"
             android:smoothScrollbar="true"
+            android:layout_gravity="center"
             android:scrollbarThumbVertical="@color/deepBlue"
             android:scrollbars="vertical"
             android:scrollbarTrackVertical="@color/grey"/>
