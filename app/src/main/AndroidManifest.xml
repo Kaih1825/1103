@@ -117,6 +117,9 @@
             android:name=".RemoteViewsFactories.showVoListRemoteViewsService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".RemoteViewsServices.showVoInfoRemoteViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

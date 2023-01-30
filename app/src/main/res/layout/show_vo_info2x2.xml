@@ -2,15 +2,44 @@
     style="@style/Widget.1103.AppWidget.Container"
     android:layout_width="140dp"
     android:layout_height="140dp"
-    android:background="@drawable/white_ra"
+    android:padding="0dp"
+    android:background="@drawable/widget_bac_1"
     android:backgroundTint="@color/deepBlue"
     android:theme="@style/Theme.1103.AppWidgetContainer">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
         android:text="疫苗護照"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/baseline_mode_edit_24"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/widget_bac_1"
+        android:padding="0dp"
+        android:backgroundTint="@color/white" >
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:scrollbars="none"
+            android:rotation="270"/>
+    </LinearLayout>
 </RelativeLayout>

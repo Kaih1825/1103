@@ -20,6 +20,8 @@ import android.view.ViewGroup
 import android.widget.*
 import com.extra.a1103.R
 import com.extra.a1103.RemoteViewsFactories.showVoListRemoteViewsService
+import com.extra.a1103.RemoteViewsServices.showVoInfoRemoteViewsService
+import com.extra.a1103.Widgets.ShowVoInfo2x2
 import com.extra.a1103.Widgets.ShowVoInfo5x2
 import com.extra.a1103.passport_home
 import com.google.android.material.datepicker.*
@@ -171,11 +173,18 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
             spEdit.apply()
             cancel()
             val appWidgetManager=AppWidgetManager.getInstance(context)
-            val rv=RemoteViews(context.packageName, R.layout.show_vo_info5x2)
-            val listIntent= Intent(context, showVoListRemoteViewsService::class.java)
+            var rv=RemoteViews(context.packageName, R.layout.show_vo_info5x2)
+            var listIntent= Intent(context, showVoListRemoteViewsService::class.java)
             rv.setRemoteAdapter(R.id.list,listIntent)
-            val appWidgetIds = appWidgetManager.getAppWidgetIds(
+            var appWidgetIds = appWidgetManager.getAppWidgetIds(
                 ComponentName(context, ShowVoInfo5x2::class.java)
+            )
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list)
+            rv=RemoteViews(context.packageName, R.layout.show_vo_info2x2)
+            listIntent= Intent(context, showVoInfoRemoteViewsService::class.java)
+            rv.setRemoteAdapter(R.id.list,listIntent)
+            appWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, ShowVoInfo2x2::class.java)
             )
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list)
 
