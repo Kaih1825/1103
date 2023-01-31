@@ -17,13 +17,16 @@ import coil.load
 import coil.transform.BlurTransformation
 import com.extra.a1103.Adapters.registrationListAdapter
 import com.extra.a1103.Dialog.mydateSelection
+import com.extra.a1103.Dialog.voTypeDialog
 import com.extra.a1103.Dialogs.addContactDialog
 import com.extra.a1103.Methods.sql
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.SingleDateSelector
+import kotlinx.android.synthetic.main.activity_passport_home.*
 import kotlinx.android.synthetic.main.activity_registration_home.*
+import kotlinx.android.synthetic.main.activity_registration_home.btn_back
 import kotlinx.android.synthetic.main.activity_registration_home.dialogBackground
 import kotlinx.android.synthetic.main.add_contact_dialog_layout.*
 import kotlinx.android.synthetic.main.registration_listview_layout.view.*
@@ -49,6 +52,8 @@ class registration_home : AppCompatActivity() {
             addContactDialog(this,this, isCheck).show()
             Handler().postDelayed({setBlurBackground()},1)
         }
+
+
         var constraintBuilder=
             CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.before(Date().time)).setEnd(
                 Date().time)

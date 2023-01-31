@@ -18,6 +18,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.extra.a1103.Adapter.recyclerViewCustomAdapter
+import com.extra.a1103.MainActivity2
 import com.extra.a1103.R
 import com.extra.a1103.RemoteViewsFactories.showVoListRemoteViewsService
 import com.extra.a1103.RemoteViewsServices.showVoInfoRemoteViewsService
@@ -38,7 +41,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var voName:TextView,var hasName:TextView,var date:TextView) : Dialog(context) {
+class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : Dialog(context) {
     var popupWindow:PopupWindow?=null
     var isOpen=0
     @SuppressLint("SetTextI18n", "RestrictedApi")
@@ -49,9 +52,9 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
         window?.setDimAmount(0f)
         voTypeSpinner.adapter = spinnerAdapter(context,activity.resources.getStringArray(R.array.voTypeArray))
         voTypeSpinner.isClickable=false
+
         var sp=context.getSharedPreferences("getVoInfo",Context.MODE_PRIVATE)
         var spEdit=sp.edit()
-
         voTypeSpinner.setOnTouchListener(object :View.OnTouchListener{
             override fun onTouch(p0: View?, p1: MotionEvent?):Boolean {
                 when (p1?.action) {
@@ -162,9 +165,9 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
         btn_vodate.text=sp.getString("voDate_${numOfVo}","2021.11.19")
         btn_voTime.text=sp.getString("voTime_${numOfVo}","11:00 AM")
         dialogBtn_confirm.setOnClickListener {
-            voName.text=voTypeSpinner.selectedItem.toString().substring(0,voTypeSpinner.selectedItem.toString().indexOf("-"))
-            hasName.text=voPlacetSpinner.selectedItem.toString()
-            date.text=btn_vodate.text.toString()
+//            voName.text=voTypeSpinner.selectedItem.toString().substring(0,voTypeSpinner.selectedItem.toString().indexOf("-"))
+//            hasName.text=voPlacetSpinner.selectedItem.toString()
+//            date.text=btn_vodate.text.toString()
             spEdit.putInt("voTypeSelection_${numOfVo}",voTypeSpinner.selectedItemPosition)
             spEdit.putInt("voCountSelection_${numOfVo}",voCountSpinner.selectedItemPosition)
             spEdit.putInt("voPlaceSelection_${numOfVo}",voPlacetSpinner.selectedItemPosition)
@@ -172,6 +175,11 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
             spEdit.putString("voTime_${numOfVo}",btn_voTime.text.toString())
             spEdit.apply()
             cancel()
+            spEdit.putInt("num${numOfVo+1}IsOpen",1)
+            spEdit.apply()
+            val isOpen1=sp.getInt("num1IsOpen",2)
+            val isOpen2=sp.getInt("num2IsOpen",2)
+            val isOpen3=sp.getInt("num3IsOpen",2)
             val appWidgetManager=AppWidgetManager.getInstance(context)
             var rv=RemoteViews(context.packageName, R.layout.show_vo_info5x2)
             var listIntent= Intent(context, showVoListRemoteViewsService::class.java)
@@ -194,6 +202,12 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int,var 
                 activity.editSuccess.visibility= View.INVISIBLE
                 activity.dialogBackground.visibility = View.INVISIBLE
             },1000)
+
+            activity.recyclerView.layoutManager = LinearLayoutManager(context)
+            activity.recyclerView.adapter = recyclerViewCustomAdapter(
+                arrayOf("1", "2","3"), arrayOf("默德納", "BNT","BNT"), arrayOf("新竹台大醫院\n新竹分院", "新竹台大醫院\n新竹分院","新竹台大醫院\n新竹分院"),
+                arrayOf("2021.11.20 13:20", "2021.11.20 13:20","2021.11.20 13:20"), arrayOf(isOpen1,isOpen2,isOpen3), activity,context
+            )
         }
 
         dialogBtn_cancel.setOnClickListener {

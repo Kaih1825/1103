@@ -43,12 +43,14 @@ class showVoListRemoteViewsService : RemoteViewsService() {
         override fun getViewAt(i: Int): RemoteViews {
             val sharedPreferences=context.getSharedPreferences("getVoInfo",Context.MODE_PRIVATE)
             val rv=RemoteViews(context.packageName, R.layout.show_vo_listview_layout)
+            var intent=Intent().putExtra("editButton",i)
+            rv.setOnClickFillInIntent(R.id.layoutClick,intent)
             rv.setTextViewText(R.id.txt_voNum,(i+1).toString())
             var name=resources.getStringArray(R.array.voTypeArray)[sharedPreferences.getInt("voTypeSelection_${i}",0)]
             rv.setTextViewText(R.id.txt_voType,name.substring(0,name.indexOf("-")))
             rv.setTextViewText(R.id.txt_voPlace,resources.getStringArray(R.array.voPlaceArray)[sharedPreferences.getInt("voPlaceSelection_${i}",0)])
             rv.setTextViewText(R.id.txt_voDate,sharedPreferences.getString("voDate_${i}","2021.11.19"))
-            if(i==2){
+            if(sharedPreferences.getInt("num${i+1}IsOpen",2)==2){
                 rv.setViewVisibility(R.id.txt_error,View.VISIBLE)
                 rv.setViewVisibility(R.id.txt_voType,View.GONE)
                 rv.setViewVisibility(R.id.txt_voDate,View.GONE)

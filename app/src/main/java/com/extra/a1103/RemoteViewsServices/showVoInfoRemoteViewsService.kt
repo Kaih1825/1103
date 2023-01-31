@@ -1,19 +1,23 @@
 package com.extra.a1103.RemoteViewsServices
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.extra.a1103.R
+import com.extra.a1103.Widgets.ShowVoInfo2x2
 
 class showVoInfoRemoteViewsService:RemoteViewsService() {
     override fun onGetViewFactory(p0: Intent): RemoteViewsFactory {
         return showVoInfoRemoteViewsFactory(applicationContext, p0)
     }
+
     class showVoInfoRemoteViewsFactory(
         private var context:Context,
         var intent: Intent
@@ -40,7 +44,7 @@ class showVoInfoRemoteViewsService:RemoteViewsService() {
             rv.setTextViewText(R.id.txt_voType,name.substring(0,name.indexOf("-")))
             rv.setTextViewText(R.id.txt_voPlace,context.resources.getStringArray(R.array.voPlaceArray)[sharedPreferences.getInt("voPlaceSelection_${i}",0)])
             rv.setTextViewText(R.id.txt_voDate,sharedPreferences.getString("voDate_${i}","2021.11.19"))
-            if(i==2){
+            if(sharedPreferences.getInt("num${i+1}IsOpen",2)==2){
                 rv.setViewVisibility(R.id.txt_error, View.VISIBLE)
                 rv.setViewVisibility(R.id.txt_voDate, View.GONE)
                 rv.setViewVisibility(R.id.txt_voPlace, View.GONE)
@@ -58,18 +62,22 @@ class showVoInfoRemoteViewsService:RemoteViewsService() {
                 rv.setTextColor(R.id.txt_voType,context.resources.getColor(R.color.deepBlue))
             }
             if(i==0){
-                rv.setInt(R.id.dot_1,"setBackgroundColor",context.resources.getColor(R.color.deepBlue))
-                rv.setInt(R.id.dot_2,"setBackgroundColor",context.resources.getColor(R.color.grey))
-                rv.setInt(R.id.dot_3,"setBackgroundColor",context.resources.getColor(R.color.grey))
+                rv.setImageViewResource(R.id.dot_1,R.drawable.cir_blu)
+                rv.setImageViewResource(R.id.dot_2,R.drawable.cir)
+                rv.setImageViewResource(R.id.dot_3,R.drawable.cir)
             }else if(i==1){
-                rv.setInt(R.id.dot_1,"setBackgroundColor",context.resources.getColor(R.color.grey))
-                rv.setInt(R.id.dot_2,"setBackgroundColor",context.resources.getColor(R.color.deepBlue))
-                rv.setInt(R.id.dot_3,"setBackgroundColor",context.resources.getColor(R.color.grey))
+                rv.setImageViewResource(R.id.dot_1,R.drawable.cir)
+                rv.setImageViewResource(R.id.dot_2,R.drawable.cir_blu)
+                rv.setImageViewResource(R.id.dot_3,R.drawable.cir)
             }else if(i==2){
-                rv.setInt(R.id.dot_1,"setBackgroundColor",context.resources.getColor(R.color.grey))
-                rv.setInt(R.id.dot_2,"setBackgroundColor",context.resources.getColor(R.color.grey))
-                rv.setInt(R.id.dot_3,"setBackgroundColor",context.resources.getColor(R.color.deepBlue))
+                rv.setImageViewResource(R.id.dot_1,R.drawable.cir)
+                rv.setImageViewResource(R.id.dot_2,R.drawable.cir)
+                rv.setImageViewResource(R.id.dot_3,R.drawable.cir_blu)
             }
+
+
+            var intent=Intent().putExtra("editButton",i)
+            rv.setOnClickFillInIntent(R.id.btn_editVo,intent)
             return rv
         }
 
