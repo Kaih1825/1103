@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txt_voNum"
-            android:text="請安排時間\n施打第3劑"
+            android:text="請安排時間\n施打第n劑"
             android:textSize="12.5dp"
             android:textColor="#ED0101"
             android:layout_centerVertical="true"/>

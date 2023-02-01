@@ -108,7 +108,7 @@ class recyclerViewCustomAdapter(
                 var name=activity.resources.getStringArray(R.array.voTypeArray)[sp.getInt("voTypeSelection_${position}",0)]
                 voName.text=name.substring(0,name.indexOf("-"))
                 hosName.text=activity.resources.getStringArray(R.array.voPlaceArray)[sp.getInt("voPlaceSelection_${position}",0)]
-                date.text=sp.getString("voDate_${position}","2021.11.19")
+                date.text=sp.getString("voDate_${position}","2021.11.19")+" "+sp.getString("voTime2_${position}","11:00")
 
                 voClick.setOnClickListener {
                     if (position == 0) {

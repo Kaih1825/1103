@@ -82,6 +82,7 @@ internal fun updateAppWidget_showVoInfo(
     editIntent.action="com.appwidget.action.click.editInfo"
     val pendingIntent= PendingIntent.getBroadcast(context,0,editIntent,0)
     views.setOnClickPendingIntent(R.id.btn_edit,pendingIntent)
+    views.setOnClickPendingIntent(R.id.btn_edit2,pendingIntent)
     val sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE)
     views.setTextViewText(R.id.txt_name,sharedPreferences.getString("cnName", "王曉明"))
     val listIntent=Intent(context,showVoListRemoteViewsService::class.java)

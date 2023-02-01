@@ -103,6 +103,7 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
             datePicker.show(activity2.supportFragmentManager, "")
         }
         var calender=Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        var datetmp=""
         datePicker.addOnPositiveButtonClickListener {
             calender.timeInMillis=datePicker.selection!!
             var month=""
@@ -120,6 +121,7 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
                 day=calender.get(Calendar.DATE).toString()
             }
             var output="${calender.get(Calendar.YEAR)}.${month}.${day}"
+            datetmp="${calender.get(Calendar.YEAR)}/${month}/${day}"
             btn_vodate.text=output
         }
         var timePicker=MaterialTimePicker.Builder().setTitleText(" ").setTheme(R.style.timePicker).build()
@@ -128,9 +130,9 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
             var activity2=activity as passport_home
             timePicker.show(activity2.supportFragmentManager,"")
         }
-
+        var timetmp=""
         timePicker.addOnPositiveButtonClickListener {
-            var hour="";var min="";var am_pm="am"
+            var hour="";var min="";var am_pm="am";var hour24=timePicker.hour.toString()
             if(timePicker.hour>12){
                 hour="${timePicker.hour-12}"
                 am_pm="pm"
@@ -156,7 +158,11 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
             if(hour.length==1){
                 hour="0${hour}"
             }
+            if(hour24.length==1){
+                hour24="0${hour24}"
+            }
             btn_voTime.text="${hour}:${min} ${am_pm}"
+            timetmp="${hour24}:${min}"
         }
 
         voTypeSpinner.setSelection(sp.getInt("voTypeSelection_${numOfVo}",0))
@@ -172,6 +178,12 @@ class voTypeDialog(context: Context, var activity: Activity,var numOfVo:Int) : D
             spEdit.putInt("voCountSelection_${numOfVo}",voCountSpinner.selectedItemPosition)
             spEdit.putInt("voPlaceSelection_${numOfVo}",voPlacetSpinner.selectedItemPosition)
             spEdit.putString("voDate_${numOfVo}",btn_vodate.text.toString())
+            if(timetmp!=""){
+                spEdit.putString("voTime2_${numOfVo}",timetmp)
+            }
+            if(datetmp!=""){
+                spEdit.putString("voDate2_${numOfVo}",datetmp)
+            }
             spEdit.putString("voTime_${numOfVo}",btn_voTime.text.toString())
             spEdit.apply()
             cancel()

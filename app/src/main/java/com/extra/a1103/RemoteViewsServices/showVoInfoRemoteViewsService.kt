@@ -43,7 +43,7 @@ class showVoInfoRemoteViewsService:RemoteViewsService() {
             var name=context.resources.getStringArray(R.array.voTypeArray)[sharedPreferences.getInt("voTypeSelection_${i}",0)]
             rv.setTextViewText(R.id.txt_voType,name.substring(0,name.indexOf("-")))
             rv.setTextViewText(R.id.txt_voPlace,context.resources.getStringArray(R.array.voPlaceArray)[sharedPreferences.getInt("voPlaceSelection_${i}",0)])
-            rv.setTextViewText(R.id.txt_voDate,sharedPreferences.getString("voDate_${i}","2021.11.19"))
+            rv.setTextViewText(R.id.txt_voDate,sharedPreferences.getString("voDate2_${i}","2021.11.19")+" "+sharedPreferences.getString("voTime2_${i}","11:00"))
             if(sharedPreferences.getInt("num${i+1}IsOpen",2)==2){
                 rv.setViewVisibility(R.id.txt_error, View.VISIBLE)
                 rv.setViewVisibility(R.id.txt_voDate, View.GONE)
@@ -51,6 +51,7 @@ class showVoInfoRemoteViewsService:RemoteViewsService() {
                 rv.setTextColor(R.id.txt_voNum, Color.RED)
                 rv.setImageViewResource(R.id.img_voIsOk, R.drawable.a8)
                 rv.setTextViewText(R.id.txt_voType,"未施打")
+                rv.setTextViewText(R.id.txt_error,"請安排時間\n施打第${i+1}劑")
                 rv.setTextColor(R.id.txt_voType, Color.RED)
             }
             else{
