@@ -1,0 +1,13 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.1103.AppWidget.Container"
+    android:id="@+id/list"
+    android:layout_width="140dp"
+    android:layout_height="140dp"
+    android:padding="0dp"
+    android:rotation="270"
+    android:background="@drawable/widget_bac_1"
+    android:backgroundTint="@color/trasnparent"
+    android:scrollbars="none"
+    android:theme="@style/Theme.1103.AppWidgetContainer">
+
+</ListView>

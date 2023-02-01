@@ -13,6 +13,7 @@
     <color name="green">#00A510</color>
     <color name="lightGreen">#E6FBE7</color>
     <color name="grey">#999999</color>
+    <color name="lightGrey">#CAC9C9</color>
     <color name="trasnparent">#00FFFFFF</color>
     <color name="light_blue_50">#FFE1F5FE</color>
     <color name="light_blue_200">#FF81D4FA</color>

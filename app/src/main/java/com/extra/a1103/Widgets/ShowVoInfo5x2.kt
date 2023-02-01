@@ -46,8 +46,9 @@ class ShowVoInfo5x2 : AppWidgetProvider() {
                 intent.putExtra("action","startInfoDialog")
                 startActivity(context!!,intent,null)
             }
-            if(intent.action.equals("com.appwidget.action.click.editVo")){
-                var extra=intent.getIntExtra("editButton",-1)
+            if(intent.action.equals("com.appwidget.action.click.editVo5x2")){
+                Log.e("Status", "onReceive", )
+                var extra=intent.getIntExtra("editButton5x2",-1)
                 if(extra==0){
                     var goIntent=Intent(context,passport_home::class.java)
                     goIntent.flags= Intent.FLAG_ACTIVITY_NEW_TASK
@@ -85,8 +86,9 @@ internal fun updateAppWidget_showVoInfo(
     views.setTextViewText(R.id.txt_name,sharedPreferences.getString("cnName", "王曉明"))
     val listIntent=Intent(context,showVoListRemoteViewsService::class.java)
     views.setRemoteAdapter(R.id.list,listIntent)
+
     var intent=Intent(context, ShowVoInfo5x2::class.java)
-    intent.action = "com.appwidget.action.click.editVo"
+    intent.action = "com.appwidget.action.click.editVo5x2"
     var pendingIntent2= PendingIntent.getBroadcast(context,0,intent,0)
     views.setPendingIntentTemplate(R.id.list,pendingIntent2)
 

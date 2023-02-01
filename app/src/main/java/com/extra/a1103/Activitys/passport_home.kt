@@ -63,6 +63,7 @@ class passport_home : AppCompatActivity() {
         }
         var getIntentExtra= intent.getStringExtra("action")
         if(getIntentExtra=="startInfoDialog"){
+            registration_home().finish()
             dialogBackground.visibility = View.VISIBLE
             infoDialog(this, this).show()
             Handler().postDelayed({
@@ -72,18 +73,21 @@ class passport_home : AppCompatActivity() {
         var getVoInfoExtra=intent.getStringExtra("editVoInfo")
 
         if(getVoInfoExtra=="1"){
+            registration_home().finish()
             voTypeDialog(this,this,0).show()
             Handler().postDelayed({
                 setBlurBackground()
             },1)
             dialogBackground.visibility = View.VISIBLE
         }else if(getVoInfoExtra=="2"){
+            registration_home().finish()
             voTypeDialog(this,this,1).show()
             Handler().postDelayed({
                 setBlurBackground()
             },1)
             dialogBackground.visibility = View.VISIBLE
         }else if(getVoInfoExtra=="3"){
+            registration_home().finish()
             voTypeDialog(this,this,2).show()
             Handler().postDelayed({
                 setBlurBackground()
@@ -246,7 +250,7 @@ class passport_home : AppCompatActivity() {
         var getIntentExtra= intent.getStringExtra("action")
         Log.e("Status", "onRestart", )
         if(getIntentExtra=="startInfoDialog"){
-
+            registration_home().finish()
             dialogBackground.visibility = View.VISIBLE
             infoDialog(this, this).show()
             Handler().postDelayed({
@@ -256,18 +260,21 @@ class passport_home : AppCompatActivity() {
         var getVoInfoExtra=intent.getStringExtra("editVoInfo")
 
         if(getVoInfoExtra=="1"){
+            registration_home().finish()
             voTypeDialog(this,this,0).show()
             Handler().postDelayed({
                 setBlurBackground()
             },1)
             dialogBackground.visibility = View.VISIBLE
         }else if(getVoInfoExtra=="2"){
+            registration_home().finish()
             voTypeDialog(this,this,1).show()
             Handler().postDelayed({
                 setBlurBackground()
             },1)
             dialogBackground.visibility = View.VISIBLE
         }else if(getVoInfoExtra=="3"){
+            registration_home().finish()
             voTypeDialog(this,this,2).show()
             Handler().postDelayed({
                 setBlurBackground()

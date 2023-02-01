@@ -49,10 +49,29 @@ class registration_home : AppCompatActivity() {
         }
         var getIntentExtra=intent.getStringExtra("action")
         if(getIntentExtra=="startAddVoDialog"){
+            passport_home().finish()
             addContactDialog(this,this, isCheck).show()
             Handler().postDelayed({setBlurBackground()},1)
         }
-
+        if(getIntentExtra=="delRes"){
+            passport_home().finish()
+            var id=intent.getStringExtra("id")
+            askDialog.visibility=View.VISIBLE
+            txt_askTitle.text="請確認是否刪除?"
+            btn_dialogDelConfirm.setOnClickListener {
+                sql.delete(this, id!!)
+                isCheck.removeAt(intent.getIntExtra("position",-1))
+                sql.addAllToListView(this, this, isCheck, list)
+                delSuccess.visibility=View.VISIBLE
+                askDialog.visibility=View.GONE
+                Handler().postDelayed({
+                    delSuccess.visibility=View.GONE
+                },2000)
+            }
+            btn_dialogCancelConfirm.setOnClickListener {
+                askDialog.visibility=View.GONE
+            }
+        }
 
         var constraintBuilder=
             CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.before(Date().time)).setEnd(
@@ -190,8 +209,28 @@ class registration_home : AppCompatActivity() {
         sql.addAllToListView(this,this,isCheck,list)
         var getIntentExtra=intent.getStringExtra("action")
         if(getIntentExtra=="startAddVoDialog"){
+            passport_home().finish()
             addContactDialog(this,this, isCheck).show()
             Handler().postDelayed({setBlurBackground()},1)
+        }
+        if(getIntentExtra=="delRes"){
+            passport_home().finish()
+            var id=intent.getStringExtra("id")
+            askDialog.visibility=View.VISIBLE
+            txt_askTitle.text="請確認是否刪除?"
+            btn_dialogDelConfirm.setOnClickListener {
+                sql.delete(this, id!!)
+                isCheck.removeAt(intent.getIntExtra("position",-1))
+                sql.addAllToListView(this, this, isCheck, list)
+                delSuccess.visibility=View.VISIBLE
+                askDialog.visibility=View.GONE
+                Handler().postDelayed({
+                    delSuccess.visibility=View.GONE
+                },2000)
+            }
+            btn_dialogCancelConfirm.setOnClickListener {
+                askDialog.visibility=View.GONE
+            }
         }
     }
 }
